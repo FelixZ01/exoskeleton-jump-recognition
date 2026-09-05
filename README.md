@@ -6,6 +6,10 @@ Reproducible research code for recognizing **vertical jump** and **long jump** m
 
 ## Project overview
 
+Full project report: [Multimodal Jump Recognition for a Civilian Exoskeleton — End-to-End Project Report](docs/PROJECT_REPORT_EN.md)
+
+完整中文项目报告：[民用外骨骼跳跃动作多模态识别项目——中文全流程报告](docs/PROJECT_REPORT_ZH.md)
+
 The recovered experiment archive contains **six participants** and two movement classes. The confirmed right-leg setup used **eight IMU nodes: six around the thigh, one on the lower leg, and one at the ankle**. Because stable output was not available from every node in every acquisition batch, the historical processing retained four consistently usable nodes (R1–R4) for modelling. A total of 227 IMU/sEMG session pairs were reported during alignment; 224 paired sessions are present in the final aligned directory. The processing records show:
 
 - 1 kHz target sampling for both modalities;

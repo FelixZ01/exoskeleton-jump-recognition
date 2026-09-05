@@ -7,9 +7,10 @@ import numpy as np
 import pandas as pd
 
 from exojump.alignment import align_frames
-from exojump.dataset import participant_split
+from exojump.dataset import discover_aligned_sessions, participant_split
 from exojump.imu import convert_raw_imu, parse_payload
 from exojump.imputation import impute_angles
+from exojump.metrics import aggregate_session_probabilities, classification_metrics
 
 
 class ImuConversionTests(unittest.TestCase):
@@ -78,6 +79,36 @@ class PreprocessingTests(unittest.TestCase):
         self.assertEqual(held_out, "P02")
         self.assertTrue(np.all(subjects[train_mask] == "P01"))
         self.assertTrue(np.all(subjects[test_mask] == "P02"))
+
+    def test_recovered_archive_layout_is_discovered(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            imu = root / "aligned_IMU/01_ABC_IMU_data/IMU_ABC_tiaogao/2025-01-02_03-04-05/IMU_2025-01-02_03-04-05.csv"
+            semg = root / "aligned_sEMG/01_ABC_sEMG_data/sEMG_ABC_tiaogao/2025-01-02_03-04-05/processed_data_2025-01-02_03-04-05.csv"
+            imu.parent.mkdir(parents=True)
+            semg.parent.mkdir(parents=True)
+            imu.write_text("R1_Roll\n1\n", encoding="utf-8")
+            semg.write_text("Channel_1\n1\n", encoding="utf-8")
+            sessions = discover_aligned_sessions(root)
+        self.assertEqual(len(sessions), 1)
+        self.assertEqual(sessions[0][:3], ("01_ABC", "tiaogao", "2025-01-02_03-04-05"))
+
+
+class MetricTests(unittest.TestCase):
+    def test_binary_metrics(self):
+        result = classification_metrics(np.array([0, 0, 1, 1]), np.array([0, 1, 1, 1]))
+        self.assertEqual(result["confusion_matrix"], [[1, 1], [0, 2]])
+        self.assertAlmostEqual(result["balanced_accuracy"], 0.75)
+
+    def test_session_aggregation(self):
+        probabilities = np.array([[0.8, 0.2], [0.6, 0.4], [0.2, 0.8]])
+        labels = np.array([0, 0, 1])
+        subjects = np.array(["P01", "P01", "P02"])
+        sessions = np.array(["A", "A", "B"])
+        actual, predicted, keys = aggregate_session_probabilities(probabilities, labels, subjects, sessions)
+        np.testing.assert_array_equal(actual, np.array([0, 1]))
+        np.testing.assert_array_equal(predicted, np.array([0, 1]))
+        self.assertEqual(keys, ["P01/A", "P02/B"])
 
 
 if __name__ == "__main__":

@@ -23,3 +23,5 @@ This result is useful as a software proof of concept only. It is not evidence of
 - Avoid selecting test recordings using the same quality score or outcome used during training.
 
 With six participants, results should be described as a pilot study. More participants and repeated sessions would be required for a strong product or publication claim.
+
+The first corrected six-person evaluation is documented in [`results/PILOT_RESULTS.md`](../results/PILOT_RESULTS.md). Its best aggregate result was the sEMG feature baseline (67.8% balanced accuracy); the dual-branch CNN reached 65.6% mean balanced accuracy with large between-participant variation. More complex architecture tuning should follow event segmentation and sensor-consistency checks, not precede them.

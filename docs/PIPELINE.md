@@ -28,10 +28,10 @@ Acquisition exports
 
 ## Recovered processing history
 
-The original scripts used a 1 ms global interval. IMU payloads contained eight groups of three values; four sensor groups were retained and reordered into R1–R4 roll/pitch/yaw. The recovered converted files imply the zero-based group order `[4, 2, 1, 3]`. This mapping is exposed as an argument in the cleaned converter and should be verified against the hardware layout before publication.
+The original scripts used a 1 ms global interval. The confirmed right-leg layout contained eight physical IMU nodes: six around the thigh, one on the lower leg, and one at the ankle. Formal acquisition payloads provided eight three-value slots. Historical processing retained four stable sensor groups and reordered them into R1–R4 roll/pitch/yaw; matching packed and converted rows implies the zero-based order `[4, 2, 1, 3]`. The physical R1–R4 position mapping remains unresolved and must not be invented.
 
 The strict alignment prototype cropped the earlier modality, detected gaps from the IMU device clock, inserted rows for missing milliseconds, and forced equal lengths using the sEMG timeline. The cleaned implementation makes the common timeline explicit and records missingness rather than silently treating padded values as observed measurements.
 
 ## Recommended analysis unit
 
-A session is identified by participant, movement (`tiaogao` or `tiaoyuan`), and recording timestamp. Windows from one participant must not appear in both training and test data. Splitting random windows would leak participant-specific motion and sensor-placement patterns.
+A session is identified by participant, movement (`tiaogao` or `tiaoyuan`), and recording timestamp. Windows from one participant must not appear in both training and test data. Splitting random windows would leak participant-specific motion and sensor-placement patterns. The cleaned training code uses separate training, validation, and test participants, class-weighted loss, per-window normalisation, early stopping, and recording-level probability aggregation.

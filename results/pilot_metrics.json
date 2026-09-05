@@ -1,0 +1,40 @@
+{
+  "status": "pilot_not_product_validation",
+  "participants": 6,
+  "aligned_sessions": 224,
+  "feature_baseline": {
+    "design": "leave_one_participant_out_session_level",
+    "imu": {
+      "balanced_accuracy": 0.5664,
+      "macro_f1": 0.5608,
+      "confusion_matrix": [[56, 61], [37, 70]]
+    },
+    "semg": {
+      "balanced_accuracy": 0.6775,
+      "macro_f1": 0.6776,
+      "confusion_matrix": [[82, 35], [37, 70]]
+    },
+    "fusion": {
+      "balanced_accuracy": 0.6345,
+      "macro_f1": 0.6268,
+      "confusion_matrix": [[61, 56], [27, 80]]
+    }
+  },
+  "dual_branch_cnn": {
+    "design": "nested_participant_held_out_with_session_aggregation",
+    "windows": 1025,
+    "window_seconds": 1,
+    "balanced_accuracy_mean": 0.6558,
+    "balanced_accuracy_std": 0.1424,
+    "macro_f1_mean": 0.5893,
+    "macro_f1_std": 0.1819,
+    "fold_balanced_accuracy": {
+      "P01": 0.8611,
+      "P02": 0.5987,
+      "P03": 0.6750,
+      "P04": 0.7750,
+      "P05": 0.5000,
+      "P06": 0.5250
+    }
+  }
+}

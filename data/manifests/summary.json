@@ -4,6 +4,9 @@
   "total_bytes": 2392259505,
   "subject_count": 6,
   "subjects_are_deidentified_in_public_outputs": true,
+  "physical_imu_nodes": 8,
+  "imu_placement": {"thigh": 6, "lower_leg": 1, "ankle": 1},
+  "retained_imu_nodes_for_modeling": 4,
   "video_count": 2,
   "extension_counts": {
     ".csv": 2483,

@@ -11,7 +11,7 @@
 | `R3_Roll`, `R3_Pitch`, `R3_Yaw` | Three orientation channels for retained sensor group R3 |
 | `R4_Roll`, `R4_Pitch`, `R4_Yaw` | Three orientation channels for retained sensor group R4 |
 
-The available files do not establish the anatomical placement or physical units of R1–R4. They should be described as sensor orientation channels until hardware documentation confirms joint locations and whether values are degrees.
+The confirmed experimental layout used eight IMU nodes on the right lower limb: six around the thigh, one on the lower leg, and one at the ankle. R1–R4 are the four retained nodes used by the historical conversion pipeline. The exact R1–R4-to-position mapping and physical angle units are still unavailable, so these columns should remain generic orientation channels until the device protocol or placement photographs establish that mapping.
 
 ## Device-processed sEMG table
 

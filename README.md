@@ -6,10 +6,11 @@ Reproducible research code for recognizing **vertical jump** and **long jump** m
 
 ## Project overview
 
-The recovered experiment archive contains six identifiable participant folders and two movement classes. A total of 227 IMU/sEMG session pairs were reported during alignment; 224 paired sessions are present in the final aligned directory. The processing records show:
+The recovered experiment archive contains **six participants** and two movement classes. The confirmed right-leg setup used **eight IMU nodes: six around the thigh, one on the lower leg, and one at the ankle**. Because stable output was not available from every node in every acquisition batch, the historical processing retained four consistently usable nodes (R1–R4) for modelling. A total of 227 IMU/sEMG session pairs were reported during alignment; 224 paired sessions are present in the final aligned directory. The processing records show:
 
 - 1 kHz target sampling for both modalities;
-- conversion of packed IMU serial payloads into 12 joint-orientation channels (four sensors × roll/pitch/yaw);
+- auditing of an eight-node right-leg IMU array and selection of four stable nodes;
+- conversion of the retained nodes into 12 orientation channels (four sensors × roll/pitch/yaw);
 - millisecond-level timestamp reconstruction and sEMG/IMU alignment;
 - detection of IMU gaps and insertion of missing rows;
 - joint-angle interpolation for 224 IMU recordings;
@@ -20,6 +21,7 @@ The cleaned pipeline in `src/exojump/` replaces hard-coded local paths with comm
 ## Demonstrated engineering work
 
 - Managed multi-device acquisition outputs spanning IMU, sEMG, foot-pressure, motion-capture, and jump-performance measurements.
+- Documented the eight-node right-leg IMU layout: thigh ×6, lower leg ×1, ankle ×1.
 - Reconstructed a millisecond timeline from device and wall clocks, detected dropped IMU samples, and paired 227 multimodal sessions.
 - Produced 224 aligned session pairs and a documented joint-angle missing-data workflow.
 - Built signal-quality, cross-modal correlation, PCA, and motion-cycle screening analyses.
@@ -72,11 +74,18 @@ python scripts/build_dataset.py --aligned-root data/processed/aligned --output d
 python scripts/train_dual_branch_cnn.py --dataset data/processed/jump_windows.npz --output outputs/baseline
 ```
 
+Run the session-level feature baseline and all six nested participant-held-out CNN folds:
+
+```bash
+python scripts/evaluate_feature_baseline.py --aligned-root data/processed/aligned --output outputs/feature_baseline.json
+python scripts/cross_validate_cnn.py --dataset data/processed/jump_windows.npz --output outputs/cnn_cv
+```
+
 ## Scientific limitations
 
 The recovered checkpoint and result figures are not presented as validated performance. The legacy prototype used one selected recording per synthetic class, computed prototypes with an untrained encoder, and evaluated on the same records used to create those prototypes. This can produce a trivially high apparent accuracy and does not measure generalisation to unseen people.
 
-For defensible results, use all eligible sessions, label by movement type, hold out entire participants, report balanced accuracy/F1/confusion matrices, and repeat evaluation across participant folds. See [docs/MODEL_VALIDITY.md](docs/MODEL_VALIDITY.md).
+For defensible results, use all eligible sessions, label by movement type, hold out entire participants, report balanced accuracy/F1/confusion matrices, and repeat evaluation across participant folds. The current six-person pilot results are reported transparently in [results/PILOT_RESULTS.md](results/PILOT_RESULTS.md); they show learnable signal but substantial cross-participant variation. See [docs/MODEL_VALIDITY.md](docs/MODEL_VALIDITY.md).
 
 ## Legacy exploratory analysis
 
@@ -90,4 +99,4 @@ Raw sEMG, IMU, motion-capture, body measurements, logs, videos, and participant 
 
 ## 中文说明
 
-本仓库整理了民用外骨骼实验中的 sEMG 与 IMU 多模态数据处理代码，目标任务为跳高/跳远动作识别。原始人体实验数据默认不上传 GitHub；仓库保留可复现代码、匿名汇总清单和方法说明。旧代码完整保存在 `legacy/`，主流程位于 `src/exojump/`。
+本仓库整理了6名受试者参与的民用外骨骼 sEMG 与 IMU 多模态实验，目标任务为跳高/跳远动作识别。右腿共布置8个IMU节点（大腿6个、小腿1个、脚踝1个）；由于不同批次的有效节点存在差异，最终建模使用4个稳定节点。原始人体实验数据默认不上传 GitHub；仓库保留可复现代码、匿名汇总清单和方法说明。旧代码完整保存在 `legacy/`，主流程位于 `src/exojump/`。

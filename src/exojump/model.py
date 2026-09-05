@@ -14,12 +14,13 @@ def build_model(imu_channels: int = 12, semg_channels: int = 8, classes: int = 2
             super().__init__()
             self.layers = nn.Sequential(
                 nn.Conv1d(channels, 32, kernel_size=9, padding=4),
-                nn.BatchNorm1d(32),
+                nn.GroupNorm(8, 32),
                 nn.ReLU(),
                 nn.MaxPool1d(4),
                 nn.Conv1d(32, 64, kernel_size=5, padding=2),
-                nn.BatchNorm1d(64),
+                nn.GroupNorm(8, 64),
                 nn.ReLU(),
+                nn.Dropout(0.1),
                 nn.AdaptiveAvgPool1d(1),
             )
 

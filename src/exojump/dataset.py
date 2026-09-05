@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import re
 
 import numpy as np
 import pandas as pd
@@ -10,8 +11,25 @@ import pandas as pd
 from .constants import IMU_CHANNELS, MOVEMENT_LABELS, SEMG_CHANNELS
 
 
+SESSION_RE = re.compile(r"(20\d{2}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2})")
+SUBJECT_RE = re.compile(r"(\d{2}_[A-Za-z]+)_(?:IMU|sEMG)_data", re.IGNORECASE)
+
+
+def _recovered_key(path: Path) -> tuple[str, str, str] | None:
+    """Recover participant, movement, and session from the archived directory layout."""
+
+    text = path.as_posix()
+    subject_match = SUBJECT_RE.search(text)
+    session_match = SESSION_RE.search(text)
+    lowered = text.lower()
+    movement = "tiaogao" if "tiaogao" in lowered else "tiaoyuan" if "tiaoyuan" in lowered else ""
+    if not subject_match or not session_match or not movement:
+        return None
+    return subject_match.group(1).upper(), movement, session_match.group(1)
+
+
 def discover_aligned_sessions(root: str | Path) -> list[tuple[str, str, str, Path, Path]]:
-    """Find ``IMU.csv``/``sEMG.csv`` pairs in a canonical processed layout."""
+    """Find aligned IMU/sEMG pairs in canonical or recovered archive layouts."""
 
     root = Path(root)
     sessions = []
@@ -26,6 +44,29 @@ def discover_aligned_sessions(root: str | Path) -> list[tuple[str, str, str, Pat
         if movement not in MOVEMENT_LABELS:
             continue
         sessions.append((subject, movement, session, imu_path, semg_path))
+    if sessions:
+        return sessions
+
+    # Recovered archive layout:
+    # aligned_IMU/<participant>_IMU_data/.../<session>/IMU_<session>.csv
+    # aligned_sEMG/<participant>_sEMG_data/.../<session>/processed_data_<session>.csv
+    imu_root = root / "aligned_IMU"
+    semg_root = root / "aligned_sEMG"
+    if not imu_root.is_dir() or not semg_root.is_dir():
+        return []
+
+    semg_by_key: dict[tuple[str, str, str], Path] = {}
+    for semg_path in sorted(semg_root.rglob("*.csv")):
+        key = _recovered_key(semg_path)
+        if key is not None and key not in semg_by_key:
+            semg_by_key[key] = semg_path
+
+    for imu_path in sorted(imu_root.rglob("IMU_*.csv")):
+        key = _recovered_key(imu_path)
+        if key is None or key not in semg_by_key:
+            continue
+        subject, movement, session = key
+        sessions.append((subject, movement, session, imu_path, semg_by_key[key]))
     return sessions
 
 
@@ -72,11 +113,14 @@ def build_windows(
 
     if not imu_windows:
         raise ValueError("No eligible aligned windows were found")
+    subject_codes = {
+        subject: f"P{index:02d}" for index, subject in enumerate(sorted(set(subjects)), start=1)
+    }
     return {
         "X_imu": np.stack(imu_windows),
         "X_semg": np.stack(semg_windows),
         "y": np.asarray(labels, dtype=np.int64),
-        "subject": np.asarray(subjects),
+        "subject": np.asarray([subject_codes[subject] for subject in subjects]),
         "session": np.asarray(sessions_out),
     }
 

@@ -1,0 +1,39 @@
+.DS_Store
+__MACOSX/
+._*
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.idea/
+.vscode/
+.venv/
+venv/
+
+# Human-participant data must remain private unless release consent is confirmed.
+data/raw/
+data/interim/
+data/processed/
+data/private*/
+data/local_source*
+*.csv
+*.xlsx
+*.log
+*.mov
+*.mp4
+*.avi
+*.mkv
+*.zip
+
+# Model checkpoints and local experiment outputs.
+artifacts/
+outputs/
+checkpoints/
+*.pth
+*.pt
+*.ckpt
+
+# Explicitly keep public, aggregate manifests and documentation.
+!data/manifests/*.csv
+!data/reports/*.md

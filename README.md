@@ -1,4 +1,3 @@
-/opt/homebrew/Library/Homebrew/cmd/shellenv.sh: line 18: /bin/ps: Operation not permitted
 # Multimodal Exoskeleton Jump Recognition
 
 Reproducible research code for recognizing **vertical jump** and **long jump** movements from synchronised surface electromyography (sEMG) and inertial measurement unit (IMU) signals collected during civilian exoskeleton experiments.

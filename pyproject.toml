@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "exojump"
+version = "0.1.0"
+description = "Leakage-aware sEMG and IMU processing for exoskeleton jump recognition"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.24",
+  "pandas>=2.0",
+]
+
+[project.optional-dependencies]
+analysis = [
+  "matplotlib>=3.7",
+  "scipy>=1.10",
+  "scikit-learn>=1.3",
+  "seaborn>=0.13",
+]
+deep-learning = ["torch>=2.1"]
+acquisition = ["pyserial>=3.5"]
+dev = ["pytest>=7.4", "ruff>=0.3"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"

@@ -1,0 +1,38 @@
+{
+  "root_name": "local_experiment_archive",
+  "file_count": 4609,
+  "total_bytes": 2392259505,
+  "subject_count": 6,
+  "subjects_are_deidentified_in_public_outputs": true,
+  "video_count": 2,
+  "extension_counts": {
+    ".csv": 2483,
+    ".log": 948,
+    ".mov": 1,
+    ".mp4": 1,
+    ".png": 1160,
+    ".rtf": 1,
+    ".txt": 11,
+    ".xlsx": 2,
+    ".zip": 2
+  },
+  "layer_counts": {
+    "documentation_or_exploration": 18,
+    "interim": 2048,
+    "model_candidate": 24,
+    "processed": 896,
+    "raw_or_device_processed": 1623
+  },
+  "layer_bytes": {
+    "documentation_or_exploration": 289609363,
+    "interim": 607910714,
+    "model_candidate": 8609616,
+    "processed": 610521480,
+    "raw_or_device_processed": 875608332
+  },
+  "movement_file_counts": {
+    "tiaogao": 2189,
+    "tiaoyuan": 2033
+  },
+  "aligned_session_count": 224
+}

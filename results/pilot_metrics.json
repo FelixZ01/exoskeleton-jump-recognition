@@ -14,6 +14,11 @@
       "macro_f1": 0.6776,
       "confusion_matrix": [[82, 35], [37, 70]]
     },
+    "pressure": {
+      "balanced_accuracy": 0.6527,
+      "macro_f1": 0.6518,
+      "confusion_matrix": [[74, 43], [35, 72]]
+    },
     "fusion": {
       "balanced_accuracy": 0.6345,
       "macro_f1": 0.6268,
@@ -36,5 +41,29 @@
       "P05": 0.5000,
       "P06": 0.5250
     }
+  },
+  "pressure_event_centered_dual_branch_cnn": {
+    "design": "three_seed_nested_participant_held_out_with_session_aggregation",
+    "eligible_sessions": 222,
+    "windows": 643,
+    "window_seconds": 2,
+    "event_offsets_ms": [-250, 0, 250],
+    "seeds": [42, 7, 123],
+    "balanced_accuracy_seed_means": [0.8985, 0.8758, 0.8906],
+    "balanced_accuracy_mean": 0.8883,
+    "balanced_accuracy_std_across_seeds": 0.0115,
+    "macro_f1_seed_means": [0.8947, 0.8700, 0.8898],
+    "macro_f1_mean": 0.8848,
+    "macro_f1_std_across_seeds": 0.0131,
+    "participant_balanced_accuracy_mean": {
+      "P01": 0.8697,
+      "P02": 0.9048,
+      "P03": 0.7719,
+      "P04": 0.9333,
+      "P05": 0.9333,
+      "P06": 0.9167
+    },
+    "pressure_used_as_model_input": false,
+    "scope": "offline_trial_classification_not_continuous_recognition"
   }
 }

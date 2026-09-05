@@ -1,6 +1,13 @@
 sampling_rate_hz: 1000
-window_size: 1000
-window_stride: 500
+participant_count: 6
+window_mode: pressure_event
+window_size: 2000
+event_offsets_ms: [-250, 0, 250]
+physical_imu_layout:
+  thigh: 6
+  lower_leg: 1
+  ankle: 1
+retained_imu_nodes: 4
 imu_channels:
   - R1_Roll
   - R1_Pitch
@@ -23,6 +30,24 @@ semg_channels:
   - Channel_6
   - Channel_7
   - Channel_8
+pressure_channels:
+  - FP_CH41
+  - FP_CH42
+  - FP_CH43
+  - FP_CH44
+  - FP_CH45
+  - FP_CH46
+  - FP_CH47
+  - FP_CH48
+  - FP_CH51
+  - FP_CH52
+  - FP_CH53
+  - FP_CH54
+  - FP_CH55
+  - FP_CH56
+  - FP_CH57
+  - FP_CH58
+pressure_aggregate: sum_foot
 labels:
   tiaogao: 0
   tiaoyuan: 1

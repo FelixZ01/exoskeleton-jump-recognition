@@ -22,6 +22,7 @@ The cleaned pipeline in `src/exojump/` replaces hard-coded local paths with comm
 
 - Managed multi-device acquisition outputs spanning IMU, sEMG, foot-pressure, motion-capture, and jump-performance measurements.
 - Documented the eight-node right-leg IMU layout: thigh ×6, lower leg ×1, ankle ×1.
+- Documented eight sEMG channels along the right waist-to-lower-limb line and 16 plantar-pressure channels stored in the same acquisition tables.
 - Reconstructed a millisecond timeline from device and wall clocks, detected dropped IMU samples, and paired 227 multimodal sessions.
 - Produced 224 aligned session pairs and a documented joint-angle missing-data workflow.
 - Built signal-quality, cross-modal correlation, PCA, and motion-cycle screening analyses.
@@ -74,6 +75,16 @@ python scripts/build_dataset.py --aligned-root data/processed/aligned --output d
 python scripts/train_dual_branch_cnn.py --dataset data/processed/jump_windows.npz --output outputs/baseline
 ```
 
+For event-centred windows, use the aggregate plantar-pressure minimum as the flight-phase anchor:
+
+```bash
+python scripts/build_dataset.py \
+  --aligned-root data/processed/aligned \
+  --output data/processed/jump_event_windows.npz \
+  --window-size 2000 \
+  --window-mode pressure_event
+```
+
 Run the session-level feature baseline and all six nested participant-held-out CNN folds:
 
 ```bash
@@ -85,7 +96,7 @@ python scripts/cross_validate_cnn.py --dataset data/processed/jump_windows.npz -
 
 The recovered checkpoint and result figures are not presented as validated performance. The legacy prototype used one selected recording per synthetic class, computed prototypes with an untrained encoder, and evaluated on the same records used to create those prototypes. This can produce a trivially high apparent accuracy and does not measure generalisation to unseen people.
 
-For defensible results, use all eligible sessions, label by movement type, hold out entire participants, report balanced accuracy/F1/confusion matrices, and repeat evaluation across participant folds. The current six-person pilot results are reported transparently in [results/PILOT_RESULTS.md](results/PILOT_RESULTS.md); they show learnable signal but substantial cross-participant variation. See [docs/MODEL_VALIDITY.md](docs/MODEL_VALIDITY.md).
+For defensible results, use all eligible sessions, label by movement type, hold out entire participants, report balanced accuracy/F1/confusion matrices, and repeat evaluation across participant folds. The current six-person pilot results are reported transparently in [results/PILOT_RESULTS.md](results/PILOT_RESULTS.md). Pressure-event-centred IMU+sEMG classification reached 88.8% mean balanced accuracy across three seeds, but this is offline trial classification rather than validated continuous recognition or product tuning. See [docs/MODEL_VALIDITY.md](docs/MODEL_VALIDITY.md).
 
 ## Legacy exploratory analysis
 

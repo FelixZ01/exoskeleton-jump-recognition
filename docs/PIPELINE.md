@@ -20,7 +20,7 @@ Acquisition exports
 4. Joint-angle gap interpolation + quality flags
           │
           ▼
-5. Fixed-length windows, labelled as vertical jump / long jump
+5. Plantar-pressure event detection and fixed-length jump windows
           │
           ▼
 6. Participant-held-out model training and evaluation
@@ -31,6 +31,8 @@ Acquisition exports
 The original scripts used a 1 ms global interval. The confirmed right-leg layout contained eight physical IMU nodes: six around the thigh, one on the lower leg, and one at the ankle. Formal acquisition payloads provided eight three-value slots. Historical processing retained four stable sensor groups and reordered them into R1–R4 roll/pitch/yaw; matching packed and converted rows implies the zero-based order `[4, 2, 1, 3]`. The physical R1–R4 position mapping remains unresolved and must not be invented.
 
 The strict alignment prototype cropped the earlier modality, detected gaps from the IMU device clock, inserted rows for missing milliseconds, and forced equal lengths using the sEMG timeline. The cleaned implementation makes the common timeline explicit and records missingness rather than silently treating padded values as observed measurements.
+
+The device-processed sEMG table also contains 16 plantar-pressure channels and an aggregate `sum_foot`/`count_foot` value. The cleaned dataset builder can smooth this aggregate signal, locate the low-pressure flight phase, and centre model windows on the event. Pressure is used as an event anchor unless explicitly included as a model input; it is not treated as an sEMG channel.
 
 ## Recommended analysis unit
 

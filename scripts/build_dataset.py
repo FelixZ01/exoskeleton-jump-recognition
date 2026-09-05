@@ -13,12 +13,17 @@ def main() -> None:
     parser.add_argument("--window-size", type=int, default=1000)
     parser.add_argument("--stride", type=int, default=500)
     parser.add_argument("--max-missing-fraction", type=float, default=0.05)
+    parser.add_argument("--window-mode", choices=("sliding", "pressure_event"), default="sliding")
+    parser.add_argument("--event-offsets", default="-250,0,250")
     args = parser.parse_args()
+    offsets = tuple(int(value) for value in args.event_offsets.split(",") if value.strip())
     arrays = build_windows(
         args.aligned_root,
         window_size=args.window_size,
         stride=args.stride,
         max_missing_fraction=args.max_missing_fraction,
+        window_mode=args.window_mode,
+        event_offsets=offsets,
     )
     save_windows(args.output, arrays)
     print(f"Saved {len(arrays['y'])} windows to {args.output}")

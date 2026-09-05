@@ -23,7 +23,7 @@ The confirmed experimental layout used eight IMU nodes on the right lower limb: 
 | `FP_CH51` … `FP_CH58` | Second bank of pressure/force channels |
 | `count_foot` / `sum_foot` | Derived aggregate pressure/force value; naming varies between exports |
 
-Channel-to-muscle and force-sensor placement metadata were not found. Avoid assigning muscle names or biomechanical interpretations without the sensor-placement protocol.
+The eight sEMG channels were placed along the right side of the body and right lower limb, following a waist-to-leg line that included the thigh, lower leg, and dorsum of the foot. The same CSV also stores a 16-channel plantar-pressure array (`FP_CH41`–`FP_CH48` and `FP_CH51`–`FP_CH58`) plus an aggregate pressure value. Exact `Channel_1`–`Channel_8` muscle names/order and individual pressure-sensor locations remain unresolved; do not invent that mapping.
 
 ## Session metadata
 

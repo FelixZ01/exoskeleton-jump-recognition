@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 
 from exojump.alignment import align_frames
-from exojump.dataset import discover_aligned_sessions, participant_split
+from exojump.dataset import discover_aligned_sessions, participant_split, pressure_event_center
 from exojump.imu import convert_raw_imu, parse_payload
 from exojump.imputation import impute_angles
 from exojump.metrics import aggregate_session_probabilities, classification_metrics
@@ -79,6 +79,12 @@ class PreprocessingTests(unittest.TestCase):
         self.assertEqual(held_out, "P02")
         self.assertTrue(np.all(subjects[train_mask] == "P01"))
         self.assertTrue(np.all(subjects[test_mask] == "P02"))
+
+    def test_pressure_event_center_finds_flight_phase(self):
+        pressure = np.concatenate((np.full(100, 90.0), np.zeros(50), np.full(100, 95.0)))
+        center = pressure_event_center(pd.DataFrame({"sum_foot": pressure}), smooth_samples=21)
+        self.assertGreaterEqual(center, 100)
+        self.assertLess(center, 150)
 
     def test_recovered_archive_layout_is_discovered(self):
         with tempfile.TemporaryDirectory() as directory:

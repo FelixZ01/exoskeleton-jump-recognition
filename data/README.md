@@ -1,6 +1,8 @@
 # Local data layout
 
-Human-participant data are excluded from version control. A local working copy may use:
+Human-participant data are excluded from version control. The formal pilot dataset contains six participants. Device-processed sEMG tables also include 16 plantar-pressure channels and an aggregate `sum_foot`/`count_foot` signal; these are separate modalities even though they share a CSV file.
+
+A local working copy may use:
 
 ```text
 data/

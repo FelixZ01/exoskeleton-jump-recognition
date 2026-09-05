@@ -6,6 +6,8 @@
 - Six participant identifiers appear in the available dataset.
 - Both vertical-jump and long-jump recordings exist for every detected participant.
 - The right-leg placement used eight IMU nodes: six around the thigh, one on the lower leg, and one at the ankle.
+- Eight sEMG channels followed the right waist-to-lower-limb line, covering the waist, thigh, lower leg, and dorsum of the foot.
+- The sEMG acquisition tables also contain 16 plantar-pressure channels and an aggregate foot-pressure signal.
 - Converted IMU files contain four retained three-axis orientation groups.
 - Aligned IMU and sEMG outputs share identical wall-clock timestamps row by row.
 - The historical reports and output directories demonstrate completed alignment and imputation runs.
@@ -14,7 +16,7 @@
 
 - The IMU payload-to-R1–R4 mapping was inferred from matching packed and converted rows as group order `[4, 2, 1, 3]` (zero based).
 - The precise mapping from retained R1–R4 groups to the eight physical positions and the angle units was not documented.
-- The exact muscle placement of sEMG channels 1–8 was not documented.
+- The exact muscle/order mapping of sEMG channels 1–8 was not documented.
 - Two missing/failed source sessions and the one-file discrepancy between report and output require manual reconciliation.
 - The available study dataset contains six participants and should be reported as a six-person pilot.
 

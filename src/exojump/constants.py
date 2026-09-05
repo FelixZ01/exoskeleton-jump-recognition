@@ -8,6 +8,12 @@ IMU_CHANNELS = [
 
 SEMG_CHANNELS = [f"Channel_{index}" for index in range(1, 9)]
 
+PRESSURE_CHANNELS = [
+    *[f"FP_CH4{index}" for index in range(1, 9)],
+    *[f"FP_CH5{index}" for index in range(1, 9)],
+    "sum_foot",
+]
+
 MOVEMENT_LABELS = {"tiaogao": 0, "tiaoyuan": 1}
 MOVEMENT_NAMES = {0: "vertical_jump", 1: "long_jump"}
 

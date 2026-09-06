@@ -49,7 +49,7 @@ Both movement classes are present for every participant. P03–P06 each have 20 
 
 ### 3.3 Data scale
 
-The recovered archive contains approximately 2.39 GB and 4,609 visible files, including 2,483 CSV files, 948 logs, and 1,160 analysis figures. It includes raw exports, device-processed tables, intermediate aligned data, imputed data, and early model-candidate folders. The pipeline preserves these layers rather than overwriting original recordings.
+After excluding two experimental videos, the inventory contains approximately 2.30 GB across 4,607 non-video files, including 2,483 CSV files, 948 logs, and 1,160 analysis figures. These files include raw exports, device-processed tables, intermediate aligned data, imputed data, and early model-candidate folders. Because the archive also contains packaged duplicates, this figure describes the inventoried non-video files rather than a deduplicated volume of independent modelling data. The pipeline preserves the processing layers rather than overwriting original recordings.
 
 ## 4. Data-processing pipeline
 
@@ -179,7 +179,7 @@ The project supports six main conclusions:
 The project demonstrates the ability to:
 
 - participate in multimodal human-movement data acquisition;
-- organise approximately 2.39 GB and 4,609 heterogeneous experimental files;
+- inventory and organise approximately 2.30 GB across 4,607 non-video experimental files;
 - process IMU, sEMG, pressure, motion-capture, and performance data;
 - reconstruct and verify timestamps across independent acquisition devices;
 - implement millisecond alignment, dropped-sample detection, interpolation, and quality control;
@@ -219,7 +219,7 @@ The present product claim is deliberately limited: the system provides a movemen
 
 ### Engineering outcomes
 
-The project delivers an end-to-end multimodal workflow from experimental acquisition to model evaluation. Approximately 2.39 GB of experimental files were organised into traceable data layers, while IMU decoding, timestamp reconstruction, modality alignment, missing-data treatment, event localisation, dataset construction, and model validation were refactored into reusable software. Configuration files, command-line interfaces, anonymised manifests, automated tests, and experiment records support reproducibility and future extension.
+The project delivers an end-to-end multimodal workflow from experimental acquisition to model evaluation. After video exclusion, approximately 2.30 GB across 4,607 non-video experimental files were inventoried and organised into traceable data layers. IMU decoding, timestamp reconstruction, modality alignment, missing-data treatment, event localisation, dataset construction, and model validation were refactored into reusable software. Configuration files, command-line interfaces, anonymised manifests, automated tests, and experiment records support reproducibility and future extension.
 
 ### Methodological outcome
 

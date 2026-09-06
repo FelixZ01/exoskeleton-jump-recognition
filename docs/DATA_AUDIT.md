@@ -7,17 +7,19 @@ Audit date: 2026-09-05. Source files were read without modifying the original di
 | Item | Observed value |
 |---|---:|
 | Visible files after metadata exclusion | 4,609 |
-| Total bytes | 2,392,259,505 |
+| Total bytes including two videos | 2,392,259,505 |
+| Non-video research files | 4,607 |
+| Non-video research-file bytes | 2,301,861,285 (approximately 2.30 GB) |
 | CSV files | 2,483 |
 | PNG files | 1,160 |
 | Log files | 948 |
-| Videos skipped | 2 |
+| Videos skipped | 2 files, 90,398,220 bytes |
 | Participant folders detected | 6 |
 | Confirmed right-leg IMU nodes | 8 (thigh 6, lower leg 1, ankle 1) |
 | Movement classes | 2 |
 | Final aligned IMU/sEMG pairs present | 224 |
 
-The directory also contains two ZIP archives, including a duplicate packaged copy of `dataset_all`, so archive size must not be interpreted as unique experimental data volume.
+The directory also contains two ZIP archives, including a duplicate packaged copy of `dataset_all`, so even the non-video archive size must not be interpreted as a deduplicated data volume. The 2.30 GB figure describes the non-video files that were inventoried, not the amount of unique model input.
 
 ## IMU configuration audit
 

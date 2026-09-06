@@ -31,7 +31,7 @@ The eight sEMG channels were placed along the right side of the body and right l
 |---|---|
 | participant | Private identifier; public outputs use P01–P06 only |
 | movement | `tiaogao` = vertical jump; `tiaoyuan` = long jump |
-| session | Recording start timestamp in the source folder |
+| session | Recording start timestamp in private source folders; model-ready NPZ files replace it with within-participant trial codes such as T001 |
 | modality | IMU, sEMG/force, motion capture, jump height, or jump distance |
 
 ## Quality-selection metadata

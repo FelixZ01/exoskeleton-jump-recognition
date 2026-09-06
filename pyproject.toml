@@ -21,6 +21,7 @@ analysis = [
   "seaborn>=0.13",
 ]
 deep-learning = ["torch>=2.1"]
+time-series = ["scikit-learn>=1.3", "sktime>=0.34", "numba>=0.59"]
 acquisition = ["pyserial>=3.5"]
 dev = ["pytest>=7.4", "ruff>=0.3"]
 

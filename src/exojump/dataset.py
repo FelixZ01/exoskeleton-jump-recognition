@@ -177,12 +177,33 @@ def build_windows(
     subject_codes = {
         subject: f"P{index:02d}" for index, subject in enumerate(sorted(set(subjects)), start=1)
     }
+    trial_codes: dict[tuple[str, int, str], str] = {}
+    for subject in sorted(set(subjects)):
+        subject_trials = sorted(
+            {
+                (stored_subject, label, session)
+                for stored_subject, label, session in zip(
+                    subjects, labels, sessions_out, strict=True
+                )
+                if stored_subject == subject
+            },
+            key=lambda item: (item[1], item[2]),
+        )
+        for index, key in enumerate(subject_trials, start=1):
+            trial_codes[key] = f"T{index:03d}"
     return {
         "X_imu": np.stack(imu_windows),
         "X_semg": np.stack(semg_windows),
         "y": np.asarray(labels, dtype=np.int64),
         "subject": np.asarray([subject_codes[subject] for subject in subjects]),
-        "session": np.asarray(sessions_out),
+        "session": np.asarray(
+            [
+                trial_codes[(subject, label, session)]
+                for subject, label, session in zip(
+                    subjects, labels, sessions_out, strict=True
+                )
+            ]
+        ),
         "window_start": np.asarray(window_starts, dtype=np.int64),
         "event_center": np.asarray(event_centers, dtype=np.int64),
     }

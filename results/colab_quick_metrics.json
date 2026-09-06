@@ -1,0 +1,79 @@
+{
+  "run_date": "2026-09-06",
+  "runtime": "Google Colab T4 GPU",
+  "status": "quick_smoke_test",
+  "dataset": {
+    "participants": 6,
+    "sessions": 222,
+    "windows": 643,
+    "imu_shape": [643, 2000, 12],
+    "semg_shape": [643, 2000, 8]
+  },
+  "protocol": {
+    "outer_split": "participant-held-out",
+    "seeds": [42],
+    "epochs": 3,
+    "patience": 2,
+    "bootstrap_resamples": 200
+  },
+  "fusion": {
+    "logistic": {
+      "balanced_accuracy": 0.6755855563,
+      "macro_f1": 0.6696630588,
+      "balanced_accuracy_95ci": [0.4938437861, 0.8659423676],
+      "confusion_matrix": [[67, 49], [24, 82]]
+    },
+    "svm": {
+      "balanced_accuracy": 0.6592387768,
+      "macro_f1": 0.6591118482,
+      "balanced_accuracy_95ci": [0.4900923432, 0.8395844033],
+      "confusion_matrix": [[84, 32], [43, 63]]
+    },
+    "cnn": {
+      "fold_balanced_accuracy_mean": 0.8825353826,
+      "fold_macro_f1_mean": 0.8779813273,
+      "pooled_balanced_accuracy": 0.8810182173,
+      "pooled_macro_f1": 0.8821078431,
+      "pooled_balanced_accuracy_95ci": [0.8132401552, 0.9552679927],
+      "confusion_matrix": [[107, 9], [17, 89]],
+      "parameter_count": 35202,
+      "training_seconds": 3.636708032
+    },
+    "bilstm": {
+      "fold_balanced_accuracy_mean": 0.5029153767,
+      "fold_macro_f1_mean": 0.4493517258,
+      "pooled_balanced_accuracy": 0.516509434,
+      "pooled_macro_f1": 0.4936461388,
+      "pooled_balanced_accuracy_95ci": [0.3662881563, 0.7822894219],
+      "confusion_matrix": [[87, 29], [76, 30]],
+      "parameter_count": 44290,
+      "training_seconds": 2.128202239
+    },
+    "tcn": {
+      "fold_balanced_accuracy_mean": 0.8823308271,
+      "fold_macro_f1_mean": 0.8844356914,
+      "pooled_balanced_accuracy": 0.8908588159,
+      "pooled_macro_f1": 0.8914602347,
+      "pooled_balanced_accuracy_95ci": [0.8131270669, 0.9549059628],
+      "confusion_matrix": [[106, 10], [14, 92]],
+      "parameter_count": 125506,
+      "training_seconds": 7.853967401
+    }
+  },
+  "cnn_modality_ablation": {
+    "imu": {
+      "fold_balanced_accuracy_mean": 0.8812840926,
+      "fold_macro_f1_mean": 0.8745268,
+      "pooled_balanced_accuracy": 0.8854912167,
+      "pooled_macro_f1": 0.8828448486,
+      "confusion_matrix": [[96, 20], [6, 100]]
+    },
+    "semg": {
+      "fold_balanced_accuracy_mean": 0.4853,
+      "fold_macro_f1_mean": 0.3392,
+      "pooled_balanced_accuracy": 0.5273,
+      "pooled_macro_f1": 0.4247,
+      "confusion_matrix": [[14, 102], [7, 99]]
+    }
+  }
+}

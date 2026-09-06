@@ -215,9 +215,23 @@ The present product claim is deliberately limited: the system provides a movemen
 8. Extend classification to movement-quality scoring, performance prediction, and parameter recommendation.
 9. Recruit more participants and evaluate cross-day and cross-device generalisation.
 
-## 12. Suggested CV description
+## 12. Project outcomes and research significance
 
-> Developed an end-to-end multimodal pipeline for civilian-exoskeleton jump recognition using data from six participants. Organised approximately 2.39 GB of IMU, sEMG, plantar-pressure, and motion-capture data; reconstructed millisecond timestamps, aligned modalities, detected dropped samples, and implemented joint-angle interpolation. Designed plantar-pressure-based event localisation and a dual-branch 1D CNN, achieving 88.8% mean balanced accuracy under nested participant-held-out validation across three random seeds. Refactored the research workflow into a documented and tested GitHub project to support movement recognition and future exoskeleton calibration.
+### Engineering outcomes
+
+The project delivers an end-to-end multimodal workflow from experimental acquisition to model evaluation. Approximately 2.39 GB of experimental files were organised into traceable data layers, while IMU decoding, timestamp reconstruction, modality alignment, missing-data treatment, event localisation, dataset construction, and model validation were refactored into reusable software. Configuration files, command-line interfaces, anonymised manifests, automated tests, and experiment records support reproducibility and future extension.
+
+### Methodological outcome
+
+Strict participant-disjoint evaluation exposed the information loss caused by arbitrary sliding windows. A plantar-pressure-based flight-phase detector was consequently introduced to construct event-centred samples. Under nested leave-one-participant-out evaluation across six participants and three random seeds, the event-centred dual-branch CNN achieved 88.8% mean balanced accuracy and 88.5% mean macro F1, substantially improving on arbitrary one-second windows.
+
+### Practical relevance
+
+The workflow provides a data and validation foundation for movement-mode recognition and engineering calibration of civilian exoskeletons. Its contribution extends beyond classification performance: it establishes an auditable framework for multidevice synchronisation, signal-quality control, and participant-independent testing. The same framework could support gait recognition, rehabilitation-movement analysis, movement-quality assessment, and human–machine intent recognition.
+
+### Research significance
+
+The project highlights three central challenges in small-sample multimodal human-signal research: domain shift caused by sensor-configuration changes, leakage caused by random window splitting, and the effect of event definition on model generalisation. These findings motivate further work on cross-participant and cross-device domain generalisation, interpretable multimodal fusion, continuous-stream event detection, and predictive links between recognised movements, exoskeleton control settings, and individual user differences.
 
 ## 13. Reproducibility links
 

@@ -109,6 +109,6 @@ python scripts/summarize_benchmarks.py \
 
 ## Cloud execution
 
-Use [`../notebooks/ExoJump_Cloud_Benchmark.ipynb`](../notebooks/ExoJump_Cloud_Benchmark.ipynb) in Google Colab. Only the prepared NPZ is required for modelling. The dataset builder replaces participant identities with P01–P06 and exact acquisition timestamps with within-participant trial codes. Raw videos and identifying files should not be uploaded. Save outputs to a private Google Drive folder and review them before publishing aggregate results.
+Use [`../notebooks/ExoJump_Cloud_Benchmark.ipynb`](../notebooks/ExoJump_Cloud_Benchmark.ipynb) in Google Colab. Upload the private `exojump-code.zip` bundle and prepared NPZ to `MyDrive/exojump_private/`; this avoids granting Colab access to a private GitHub account. The dataset builder replaces participant identities with P01–P06 and exact acquisition timestamps with within-participant trial codes. Raw videos and identifying files should not be uploaded. Save outputs to the same private Google Drive folder and review them before publishing aggregate results.
 
 Start with the notebook's quick mode. Run the complete three-seed study only after the smoke run succeeds. If the project is developed into a paper, confirm the selected final model with at least five seeds, but do not describe additional seeds as additional participant evidence.

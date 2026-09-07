@@ -1,5 +1,7 @@
 # Six-participant pilot results
 
+> Historical note: this document records the earlier focused CNN pilot. The later current-pipeline multi-model run produced 87.5% ± 1.6 percentage points balanced accuracy for the fusion CNN; see [the full Colab benchmark](COLAB_FULL_BENCHMARK.md). Differences should be treated as implementation/evaluation-version variation rather than additional participant evidence.
+
 These results are an honest engineering baseline, not a clinical or product-validation claim. All 224 aligned recordings from six participants were used. Each outer fold held out one complete participant; no participant appeared in both training and test data.
 
 ## Session-level feature baseline

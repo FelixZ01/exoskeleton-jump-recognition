@@ -1,0 +1,61 @@
+{
+  "run_date": "2026-09-07",
+  "runtime": "Google Colab T4 GPU",
+  "status": "full_benchmark_complete",
+  "protocol": {
+    "participants": 6,
+    "sessions": 222,
+    "windows": 643,
+    "seeds": [42, 7, 123],
+    "epochs": 30,
+    "patience": 5,
+    "bootstrap_resamples": 2000,
+    "device": "cuda",
+    "outer_split": "participant-held-out"
+  },
+  "balanced_accuracy": {
+    "logistic_fusion": 0.6755855563,
+    "svm_fusion": 0.6592387768,
+    "random_forest_fusion": 0.7263337671,
+    "minirocket_fusion": 0.822950553,
+    "cnn_fusion_mean": 0.8748347585,
+    "cnn_fusion_std": 0.0161090827,
+    "bilstm_fusion_mean": 0.4970496093,
+    "bilstm_fusion_std": 0.0228738374,
+    "tcn_fusion_mean": 0.8446711141,
+    "tcn_fusion_std": 0.0370909616,
+    "cnn_imu_mean": 0.8734667551,
+    "cnn_imu_std": 0.0304394607,
+    "cnn_semg_mean": 0.5354667306,
+    "cnn_semg_std": 0.0045499784
+  },
+  "macro_f1": {
+    "logistic_fusion": 0.6696630588,
+    "svm_fusion": 0.6591118482,
+    "random_forest_fusion": 0.726533629,
+    "minirocket_fusion": 0.8235186204,
+    "cnn_fusion_mean": 0.8703807548,
+    "cnn_fusion_std": 0.013352771,
+    "bilstm_fusion_mean": 0.4517860534,
+    "bilstm_fusion_std": 0.0216036869,
+    "tcn_fusion_mean": 0.8340621676,
+    "tcn_fusion_std": 0.0460737487,
+    "cnn_imu_mean": 0.86828706,
+    "cnn_imu_std": 0.0314297542,
+    "cnn_semg_mean": 0.4325932415,
+    "cnn_semg_std": 0.0184947048
+  },
+  "classical_balanced_accuracy_95ci": {
+    "logistic_fusion": [0.4938437861, 0.8563559322],
+    "svm_fusion": [0.4900923432, 0.828142507],
+    "random_forest_fusion": [0.5940860215, 0.860667996],
+    "minirocket_fusion": [0.6862288136, 0.9238356359]
+  },
+  "seed42_confusion_matrices": {
+    "cnn_fusion": [[98, 18], [7, 99]],
+    "bilstm_fusion": [[88, 28], [76, 30]],
+    "tcn_fusion": [[87, 29], [5, 101]],
+    "cnn_imu": [[97, 19], [9, 97]],
+    "cnn_semg": [[44, 72], [27, 79]]
+  }
+}

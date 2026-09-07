@@ -1,0 +1,44 @@
+{
+  "run_date": "2026-09-07",
+  "runtime": "Google Colab T4 GPU",
+  "status": "complete",
+  "design": "leave-one-IMU-node-out retraining ablation",
+  "architecture": "tcn",
+  "input_modality": "imu_only",
+  "participants": 6,
+  "sessions": 224,
+  "windows": 647,
+  "seeds": [42, 7, 123],
+  "epochs": 30,
+  "full_sensor_baseline_balanced_accuracy": 0.9088717163278567,
+  "ablations": {
+    "R1": {
+      "balanced_accuracy_mean": 0.9112515084006313,
+      "balanced_accuracy_std": 0.006513387760188884,
+      "macro_f1_mean": 0.9119937857460371,
+      "macro_f1_std": 0.007250786743863275,
+      "balanced_accuracy_drop": -0.0023797920727746114
+    },
+    "R2": {
+      "balanced_accuracy_mean": 0.9109138587208762,
+      "balanced_accuracy_std": 0.02835985725300278,
+      "macro_f1_mean": 0.9040523800466859,
+      "macro_f1_std": 0.032510944783379195,
+      "balanced_accuracy_drop": -0.002042142393019475
+    },
+    "R3": {
+      "balanced_accuracy_mean": 0.8154495033880997,
+      "balanced_accuracy_std": 0.011357207164324845,
+      "macro_f1_mean": 0.8143647393191359,
+      "macro_f1_std": 0.00747362752534753,
+      "balanced_accuracy_drop": 0.09342221293975694
+    },
+    "R4": {
+      "balanced_accuracy_mean": 0.6276014109347442,
+      "balanced_accuracy_std": 0.02730587756021737,
+      "macro_f1_mean": 0.5562266143542894,
+      "macro_f1_std": 0.025840374667874377,
+      "balanced_accuracy_drop": 0.2812703053931125
+    }
+  }
+}

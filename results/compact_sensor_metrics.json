@@ -1,0 +1,43 @@
+{
+  "run_date": "2026-09-07",
+  "runtime": "Google Colab T4 GPU",
+  "status": "complete",
+  "design": "compact IMU-node subset retraining",
+  "architecture": "tcn",
+  "input_modality": "imu_only",
+  "participants": 6,
+  "sessions": 224,
+  "windows": 647,
+  "seeds": [42, 7, 123],
+  "epochs": 30,
+  "full_sensor_baseline_balanced_accuracy": 0.9088717163278567,
+  "configurations": {
+    "R3_R4": {
+      "retained_sensors": ["R3", "R4"],
+      "imu_channels": 6,
+      "balanced_accuracy_mean": 0.8855750487329433,
+      "balanced_accuracy_std": 0.0023329259062081064,
+      "macro_f1_mean": 0.8870586804911217,
+      "macro_f1_std": 0.0018991384816953027,
+      "balanced_accuracy_change": -0.023296667594913334
+    },
+    "R4_only": {
+      "retained_sensors": ["R4"],
+      "imu_channels": 3,
+      "balanced_accuracy_mean": 0.8447089947089946,
+      "balanced_accuracy_std": 0.009633635206798555,
+      "macro_f1_mean": 0.8408745650707757,
+      "macro_f1_std": 0.011743923191035045,
+      "balanced_accuracy_change": -0.06416272161886205
+    },
+    "R3_only": {
+      "retained_sensors": ["R3"],
+      "imu_channels": 3,
+      "balanced_accuracy_mean": 0.4599658869395711,
+      "balanced_accuracy_std": 0.021785628922638783,
+      "macro_f1_mean": 0.31736351838587573,
+      "macro_f1_std": 0.03923649975903803,
+      "balanced_accuracy_change": -0.4489058293882856
+    }
+  }
+}

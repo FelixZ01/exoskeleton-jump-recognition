@@ -25,3 +25,4 @@ hardware removal without a larger prospective validation study.
 
 The next experiment therefore retrains compact R3+R4, R4-only, and R3-only
 TCNs rather than inferring a reduced design from occlusion alone.
+Its completed results are reported in [Compact IMU sensor configurations](COMPACT_SENSOR_CONFIGURATIONS.md).

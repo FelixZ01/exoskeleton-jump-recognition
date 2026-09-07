@@ -18,6 +18,8 @@ IMU-only deployment experiment: [English](results/IMU_EVENT_BENCHMARK.md) | [中
 
 IMU-node retraining ablation: [English](results/SENSOR_ABLATION.md) | [中文](results/SENSOR_ABLATION_ZH.md) | [machine-readable metrics](results/sensor_ablation_metrics.json)
 
+Compact IMU configurations: [English](results/COMPACT_SENSOR_CONFIGURATIONS.md) | [中文](results/COMPACT_SENSOR_CONFIGURATIONS_ZH.md) | [machine-readable metrics](results/compact_sensor_metrics.json)
+
 The recovered experiment archive contains **six participants** and two movement classes. The confirmed right-leg setup used **eight IMU nodes: six around the thigh, one on the lower leg, and one at the ankle**. Because stable output was not available from every node in every acquisition batch, the historical processing retained four consistently usable nodes (R1–R4) for modelling. A total of 227 IMU/sEMG session pairs were reported during alignment; 224 paired sessions are present in the final aligned directory. The processing records show:
 
 - 1 kHz target sampling for both modalities;

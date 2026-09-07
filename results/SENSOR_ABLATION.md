@@ -22,3 +22,6 @@ configuration should retain R4 and R3, but physical placement recommendations
 must wait until the historical R1–R4 identifiers are mapped conclusively to
 anatomical locations. The six-person sample is too small to justify permanent
 hardware removal without a larger prospective validation study.
+
+The next experiment therefore retrains compact R3+R4, R4-only, and R3-only
+TCNs rather than inferring a reduced design from occlusion alone.

@@ -1,0 +1,72 @@
+{
+  "status": "complete",
+  "design": "nested participant-held-out regularised time-series Transformer comparison",
+  "dataset": {
+    "participants": 6,
+    "trials": 224,
+    "windows": 647,
+    "event_locator": "IMU-derived"
+  },
+  "seeds": [42, 7, 123],
+  "folds_per_configuration": 18,
+  "epochs_max": 30,
+  "regularisation": {
+    "encoder_layers": 2,
+    "attention_heads": 4,
+    "hidden_width": 64,
+    "token_stride": 8,
+    "dropout": 0.4,
+    "weight_decay": 0.0001,
+    "early_stopping_patience": 5,
+    "participant_held_out": true
+  },
+  "experiments": {
+    "transformer_R3_R4": {
+      "balanced_accuracy_mean": 0.8946649029982363,
+      "balanced_accuracy_std": 0.01735797191741552,
+      "macro_f1_mean": 0.8929050631590786,
+      "macro_f1_std": 0.021704707782597605,
+      "parameter_count": 70722,
+      "mean_best_epoch": 7.722222222222222,
+      "mean_epochs_completed": 12.722222222222221,
+      "early_stopped_folds": 18,
+      "mean_final_train_loss": 0.03063107494531395,
+      "mean_final_validation_loss": 0.3384936801497436,
+      "mean_best_validation_loss": 0.1800181862668574,
+      "final_validation_minus_train_loss": 0.3078626052044297
+    },
+    "transformer_imu": {
+      "balanced_accuracy_mean": 0.8741402116402117,
+      "balanced_accuracy_std": 0.08589676078490673,
+      "macro_f1_mean": 0.8656364538730136,
+      "macro_f1_std": 0.1048635979374874,
+      "parameter_count": 74178,
+      "mean_best_epoch": 5.277777777777778,
+      "mean_epochs_completed": 10.277777777777779,
+      "early_stopped_folds": 18,
+      "mean_final_train_loss": 0.007546409388374915,
+      "mean_final_validation_loss": 0.4277003641117416,
+      "mean_best_validation_loss": 0.20860350309198517,
+      "final_validation_minus_train_loss": 0.4201539547233667
+    },
+    "transformer_fusion": {
+      "balanced_accuracy_mean": 0.8460839598997495,
+      "balanced_accuracy_std": 0.036280410995135196,
+      "macro_f1_mean": 0.8239127069894719,
+      "macro_f1_std": 0.039761190539367906,
+      "parameter_count": 78786,
+      "mean_best_epoch": 4.666666666666667,
+      "mean_epochs_completed": 9.666666666666666,
+      "early_stopped_folds": 18,
+      "mean_final_train_loss": 0.012429825064221706,
+      "mean_final_validation_loss": 0.5763241072030117,
+      "mean_best_validation_loss": 0.2897535870110409,
+      "final_validation_minus_train_loss": 0.56389428213879
+    }
+  },
+  "reference_models": {
+    "full_imu_tcn_balanced_accuracy_mean": 0.9088717163278567,
+    "R3_R4_tcn_balanced_accuracy_mean": 0.8855750487329433
+  },
+  "privacy": "Aggregate results only; no participant-level predictions or source data are included."
+}

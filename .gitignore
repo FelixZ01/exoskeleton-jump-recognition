@@ -36,4 +36,6 @@ checkpoints/
 
 # Explicitly keep public, aggregate manifests and documentation.
 !data/manifests/*.csv
+!data/samples/*.csv
+!data/samples/*.json
 !data/reports/*.md

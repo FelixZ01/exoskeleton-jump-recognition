@@ -41,6 +41,7 @@ The cleaned pipeline in `src/exojump/` replaces hard-coded local paths with comm
 ```text
 configs/                 Example pipeline configuration
 data/manifests/          Public aggregate inventory (no participant initials)
+data/samples/            Four small identity-free signal examples for reviewers
 docs/                    Audit, data dictionary, pipeline, and privacy notes
 legacy/                  Recovered original scripts, renamed by function
 scripts/                 Command-line entry points

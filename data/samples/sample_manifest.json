@@ -1,0 +1,36 @@
+{
+  "source": "anonymised model-ready windows",
+  "sampling_rate_hz": 1000,
+  "contains_identifiers": false,
+  "contains_video": false,
+  "samples": [
+    {
+      "file": "vertical_jump_imu_example.csv",
+      "movement": "vertical_jump",
+      "modality": "imu",
+      "rows": 2000,
+      "channels": 12
+    },
+    {
+      "file": "vertical_jump_semg_example.csv",
+      "movement": "vertical_jump",
+      "modality": "semg",
+      "rows": 2000,
+      "channels": 8
+    },
+    {
+      "file": "long_jump_imu_example.csv",
+      "movement": "long_jump",
+      "modality": "imu",
+      "rows": 2000,
+      "channels": 12
+    },
+    {
+      "file": "long_jump_semg_example.csv",
+      "movement": "long_jump",
+      "modality": "semg",
+      "rows": 2000,
+      "channels": 8
+    }
+  ]
+}

@@ -12,6 +12,8 @@ Full project report: [Multimodal Jump Recognition for a Civilian Exoskeleton —
 
 Technical work and individual contributions: [English](docs/TECHNICAL_CONTRIBUTIONS_EN.md) | [中文](docs/TECHNICAL_CONTRIBUTIONS_ZH.md)
 
+Reference documentation: data dictionary ([English](docs/DATA_DICTIONARY.md) / [中文](docs/DATA_DICTIONARY_ZH.md)) | data audit ([English](docs/DATA_AUDIT.md) / [中文](docs/DATA_AUDIT_ZH.md)) | processing pipeline ([English](docs/PIPELINE.md) / [中文](docs/PIPELINE_ZH.md)) | model validity ([English](docs/MODEL_VALIDITY.md) / [中文](docs/MODEL_VALIDITY_ZH.md))
+
 Multi-model evaluation: [experiment protocol](docs/EXPERIMENT_BENCHMARK.md) | [Google Colab runner](notebooks/ExoJump_Cloud_Benchmark.ipynb) | Full benchmark ([English](results/COLAB_FULL_BENCHMARK.md) / [中文](results/COLAB_FULL_BENCHMARK_ZH.md)) | Quick smoke test ([English](results/COLAB_QUICK_BENCHMARK.md) / [中文](results/COLAB_QUICK_BENCHMARK_ZH.md))
 
 IMU-only deployment experiment: [English](results/IMU_EVENT_BENCHMARK.md) | [中文](results/IMU_EVENT_BENCHMARK_ZH.md) | [machine-readable metrics](results/imu_event_metrics.json)

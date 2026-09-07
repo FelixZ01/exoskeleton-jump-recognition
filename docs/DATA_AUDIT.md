@@ -58,7 +58,7 @@ The imputation report says 448 files were scanned, with 224 processed and 224 sk
 
 ## Class and participant balance
 
-The aligned session counts are stored in `data/manifests/aligned_session_counts.csv`. Five participants have 20 recordings per movement. Two folders are less complete: P01 has 18 vertical-jump and 7 long-jump sessions; P02 has 19 vertical-jump and 20 long-jump sessions.
+The aligned session counts are stored in `data/manifests/aligned_session_counts.csv`. Four participants (P03–P06) have 20 recordings per movement. Two folders are less complete: P01 has 18 vertical-jump and 7 long-jump sessions; P02 has 19 vertical-jump and 20 long-jump sessions.
 
 The six “optimal” model candidates are strongly imbalanced: five vertical-jump recordings and one long-jump recording. They are suitable for qualitative inspection, not for training or evaluating a two-class classifier by themselves.
 

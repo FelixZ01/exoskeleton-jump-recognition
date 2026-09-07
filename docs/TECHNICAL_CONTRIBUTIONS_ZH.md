@@ -35,9 +35,9 @@
 
 ### 3.2 传感器与通道信息梳理
 
-- 确认右下肢共布置8个IMU节点：大腿周围6个、小腿1个、脚踝1个；
+- 确认IMU采用双侧布置，共8个、每侧4个，分别位于腰部、大腿前侧靠近膝盖上方、小腿前侧和脚背；
 - 梳理建模数据中4个稳定IMU节点的12个姿态通道，即Roll、Pitch和Yaw；
-- 确认采集表格包含8路sEMG信号，传感器沿右侧腰部至右下肢区域布置；
+- 确认右侧sEMG通道位置：Channel 1–6位于大腿环绕区域、Channel 7位于小腿前外侧、Channel 8位于脚踝内侧，同时保留具体肌肉名称的不确定性；
 - 从同一采集表中识别并独立管理16路足底压力通道，避免将压力信号误认为肌电通道；
 - 对不同受试者和采集批次的有效IMU节点差异进行审计，识别潜在的硬件域偏移问题。
 
@@ -196,6 +196,7 @@
 - 数据字段说明：[English](DATA_DICTIONARY.md) | [中文](DATA_DICTIONARY_ZH.md)
 - 数据处理流程：[English](PIPELINE.md) | [中文](PIPELINE_ZH.md)
 - 模型有效性说明：[English](MODEL_VALIDITY.md) | [中文](MODEL_VALIDITY_ZH.md)
+- 传感器佩戴照片与证据说明：[English](SENSOR_PLACEMENT.md) | [中文](SENSOR_PLACEMENT_ZH.md)
 - 六人早期实验结果：[English](../results/PILOT_RESULTS.md) | [中文](../results/PILOT_RESULTS_ZH.md)
 - 完整模型比较：[`../results/COLAB_FULL_BENCHMARK_ZH.md`](../results/COLAB_FULL_BENCHMARK_ZH.md)
 - IMU事件实验：[`../results/IMU_EVENT_BENCHMARK_ZH.md`](../results/IMU_EVENT_BENCHMARK_ZH.md)

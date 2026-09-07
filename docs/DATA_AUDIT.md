@@ -15,7 +15,7 @@ Audit date: 2026-09-05. Source files were read without modifying the original di
 | Log files | 948 |
 | Videos skipped | 2 files, 90,398,220 bytes |
 | Participant folders detected | 6 |
-| Confirmed right-leg IMU nodes | 8 (thigh 6, lower leg 1, ankle 1) |
+| Confirmed IMU nodes | 8 total, bilateral, 4 per side: waist, anterior distal thigh above knee, anterior lower leg, dorsum of foot |
 | Movement classes | 2 |
 | Final aligned IMU/sEMG pairs present | 224 |
 
@@ -23,7 +23,7 @@ The directory also contains two ZIP archives, including a duplicate packaged cop
 
 ## IMU configuration audit
 
-The six-person formal dataset contains 227 packed IMU recordings with eight payload slots. In 27 recordings from P01, all eight slots contained non-zero values; in the other 200 recordings, four slots contained stable non-zero values while the remaining slots were zero-filled. The historical conversion therefore retained four nodes as R1–R4. A separate set of 20 earlier pilot recordings used a six-slot payload and is not counted as an additional participant in the formal dataset.
+The six-person formal dataset contains 227 packed IMU recordings with eight payload slots. The experiment photograph and acquisition recollection show a bilateral arrangement with four IMUs per side: waist, anterior distal thigh just above the knee, anterior lower leg, and dorsum of the foot. In 27 recordings from P01, all eight slots contained non-zero values; in the other 200 recordings, four slots contained stable non-zero values while the remaining slots were zero-filled. The historical conversion therefore retained four nodes as R1–R4. Their exact side and anatomical order remain unresolved. A separate set of 20 earlier pilot recordings used a six-slot payload and is not counted as an additional participant in the formal dataset.
 
 ## Data layers
 

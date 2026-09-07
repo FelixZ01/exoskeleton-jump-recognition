@@ -31,7 +31,7 @@ Acquisition exports
 
 ## Recovered processing history
 
-The original scripts used a 1 ms global interval. The confirmed right-leg layout contained eight physical IMU nodes: six around the thigh, one on the lower leg, and one at the ankle. Formal acquisition payloads provided eight three-value slots. Historical processing retained four stable sensor groups and reordered them into R1–R4 roll/pitch/yaw; matching packed and converted rows implies the zero-based order `[4, 2, 1, 3]`. The physical R1–R4 position mapping remains unresolved and must not be invented.
+The original scripts used a 1 ms global interval. The confirmed layout contained eight physical IMU nodes arranged bilaterally, four per side: waist, anterior distal thigh just above the knee, anterior lower leg, and dorsum of the foot. Formal acquisition payloads provided eight three-value slots. Historical processing retained four stable sensor groups and reordered them into R1–R4 roll/pitch/yaw; matching packed and converted rows implies the zero-based order `[4, 2, 1, 3]`. The retained side and physical R1–R4 order remain unresolved and must not be invented.
 
 The strict alignment prototype cropped the earlier modality, detected gaps from the IMU device clock, inserted rows for missing milliseconds, and forced equal lengths using the sEMG timeline. The cleaned implementation makes the common timeline explicit and records missingness rather than silently treating padded values as observed measurements.
 

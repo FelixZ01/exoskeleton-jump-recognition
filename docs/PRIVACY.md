@@ -13,3 +13,7 @@ Before publishing data or a trained checkpoint:
 7. Document exclusions, preprocessing, licence, and an access/removal contact.
 
 The repository `.gitignore` blocks common participant-data formats and model checkpoints by default. Do not bypass it without completing this checklist.
+
+## Public apparatus photograph
+
+`docs/assets/sensor_setup_front.jpg` is the sole public experiment photograph. It was added at the repository owner's explicit direction for apparatus documentation, contains no visible face, and was copied without EXIF metadata. It should not be used to infer participant identity. Its inclusion does not authorise publication of any other participant image, video, raw sensor file, or identifying record.

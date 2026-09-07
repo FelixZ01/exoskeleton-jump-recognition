@@ -8,8 +8,26 @@
   "subject_count": 6,
   "subjects_are_deidentified_in_public_outputs": true,
   "physical_imu_nodes": 8,
-  "imu_placement": {"thigh": 6, "lower_leg": 1, "ankle": 1},
+  "imu_placement": {
+    "layout": "bilateral",
+    "nodes_per_side": 4,
+    "positions_per_side": ["waist", "anterior_distal_thigh_above_knee", "anterior_lower_leg", "dorsum_of_foot"],
+    "r1_r4_position_mapping_confirmed": false
+  },
   "retained_imu_nodes_for_modeling": 4,
+  "semg_placement": {
+    "side": "right",
+    "channel_count": 8,
+    "right_thigh_circumferential": 6,
+    "right_anterolateral_lower_leg": 1,
+    "right_medial_ankle": 1,
+    "channel_mapping": {
+      "Channel_1_to_Channel_6": "right_thigh_circumferential",
+      "Channel_7": "right_anterolateral_lower_leg",
+      "Channel_8": "right_medial_ankle"
+    },
+    "channel_to_position_order_confirmed": true
+  },
   "video_count": 2,
   "extension_counts": {
     ".csv": 2483,

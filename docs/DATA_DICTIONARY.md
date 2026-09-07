@@ -11,7 +11,7 @@
 | `R3_Roll`, `R3_Pitch`, `R3_Yaw` | Three orientation channels for retained sensor group R3 |
 | `R4_Roll`, `R4_Pitch`, `R4_Yaw` | Three orientation channels for retained sensor group R4 |
 
-The confirmed experimental layout used eight IMU nodes on the right lower limb: six around the thigh, one on the lower leg, and one at the ankle. R1–R4 are the four retained nodes used by the historical conversion pipeline. The exact R1–R4-to-position mapping and physical angle units are still unavailable, so these columns should remain generic orientation channels until the device protocol or placement photographs establish that mapping.
+The confirmed experimental layout used eight IMU nodes bilaterally, with four on each side at the waist, anterior distal thigh just above the knee, anterior lower leg, and dorsum of the foot. R1–R4 are the four retained nodes used by the historical conversion pipeline. The exact retained side, R1–R4-to-position mapping, and physical angle units are still unavailable, so these columns should remain generic orientation channels until device identifiers or a labelled protocol establish that mapping.
 
 ## Device-processed sEMG table
 
@@ -23,7 +23,7 @@ The confirmed experimental layout used eight IMU nodes on the right lower limb: 
 | `FP_CH51` … `FP_CH58` | Second bank of pressure/force channels |
 | `count_foot` / `sum_foot` | Derived aggregate pressure/force value; naming varies between exports |
 
-The eight sEMG channels were placed along the right side of the body and right lower limb, following a waist-to-leg line that included the thigh, lower leg, and dorsum of the foot. The same CSV also stores a 16-channel plantar-pressure array (`FP_CH41`–`FP_CH48` and `FP_CH51`–`FP_CH58`) plus an aggregate pressure value. Exact `Channel_1`–`Channel_8` muscle names/order and individual pressure-sensor locations remain unresolved; do not invent that mapping.
+The eight sEMG channels were acquired on the right side: `Channel_1`–`Channel_6` are six electrodes distributed around the thigh, `Channel_7` is on the anterolateral lower leg, and `Channel_8` is on the medial ankle. The same CSV also stores a 16-channel plantar-pressure array (`FP_CH41`–`FP_CH48` and `FP_CH51`–`FP_CH58`) plus an aggregate pressure value. The channel positions are confirmed; exact muscle names and individual pressure-sensor locations remain unresolved.
 
 ## Session metadata
 

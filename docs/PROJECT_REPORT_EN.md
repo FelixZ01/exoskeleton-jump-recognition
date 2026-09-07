@@ -39,9 +39,9 @@ Both movement classes are present for every participant. P03–P06 each have 20 
 
 ### 3.2 Sensor configuration
 
-**IMUs.** Eight physical IMU nodes were placed on the right lower limb: six around the thigh, one on the lower leg, and one at the ankle. Formal acquisition packets contained eight three-value sensor slots. A data audit found valid values in all eight slots for the 27 P01 recordings, whereas four slots provided stable non-zero values in the remaining 200 recordings and the other slots were zero-filled. The historical processing pipeline therefore retained four stable nodes, denoted R1–R4. Each retained node contributes roll, pitch, and yaw, giving 12 orientation channels. The exact mapping from R1–R4 to physical placement has not yet been recovered and is not inferred without evidence.
+**IMUs.** Eight physical IMU nodes were arranged bilaterally, with four per side at the waist, anterior distal thigh just above the knee, anterior lower leg, and dorsum of the foot. Formal acquisition packets contained eight three-value sensor slots. A data audit found valid values in all eight slots for the 27 P01 recordings, whereas four slots provided stable non-zero values in the remaining 200 recordings and the other slots were zero-filled. The historical processing pipeline therefore retained four stable nodes, denoted R1–R4. Each retained node contributes roll, pitch, and yaw, giving 12 orientation channels. The retained body side and exact R1–R4-to-position order have not yet been recovered and are not inferred without evidence.
 
-**sEMG.** Eight sEMG channels were placed along the right side of the body and right lower limb, following a waist-to-leg line that covered the waist, thigh, lower leg, and dorsum of the foot. The source material does not establish the precise muscle name or order for `Channel_1` through `Channel_8`; the analysis therefore retains neutral channel identifiers.
+**sEMG.** Eight sEMG channels were acquired on the right side. `Channel_1`–`Channel_6` correspond to six electrodes distributed around the thigh, `Channel_7` to the anterolateral lower leg, and `Channel_8` to the medial ankle. Exact muscle names remain unavailable, so the analysis does not attach unverified physiological labels to these positions.
 
 **Plantar pressure.** The same device-processed CSV tables also contain 16 plantar-pressure channels (`FP_CH41–FP_CH48` and `FP_CH51–FP_CH58`) and an aggregate `sum_foot` or `count_foot` signal. Although stored beside sEMG, pressure is treated as a separate modality throughout the pipeline.
 
@@ -228,7 +228,7 @@ The present product claim is deliberately limited: the system provides a movemen
 - The study includes only six participants.
 - Effective IMU availability differed between acquisition batches.
 - The R1–R4 physical-node mapping has not been recovered.
-- Exact sEMG channel-to-muscle mapping remains unknown.
+- sEMG channel-to-position mapping is confirmed, but exact channel-to-muscle mapping remains unknown.
 - Device-side sEMG filtering has not been fully documented.
 - Two aligned sessions did not produce complete quality-controlled event windows.
 - The task is offline classification of pre-recorded trials, not continuous streaming recognition.
@@ -237,7 +237,7 @@ The present product claim is deliberately limited: the system provides a movemen
 
 ## 11. Next research steps
 
-1. Recover the physical R1–R4 mapping and sEMG channel-to-muscle order.
+1. Recover the retained IMU side and physical R1–R4 order, and confirm the exact muscles underlying the known sEMG positions.
 2. Verify device-side sEMG processing and add filtering only if required.
 3. Confirm the IMU-versus-pressure event agreement with manually annotated take-off and landing times.
 4. Recruit a larger external cohort and evaluate cross-day and cross-device generalisation.
@@ -271,6 +271,7 @@ The project highlights three central challenges in small-sample multimodal human
 - Data audit: [English](DATA_AUDIT.md) | [中文](DATA_AUDIT_ZH.md)
 - Processing pipeline: [English](PIPELINE.md) | [中文](PIPELINE_ZH.md)
 - Model-validity review: [English](MODEL_VALIDITY.md) | [中文](MODEL_VALIDITY_ZH.md)
+- Sensor-placement photograph and evidence: [English](SENSOR_PLACEMENT.md) | [中文](SENSOR_PLACEMENT_ZH.md)
 - Pilot results: [English](../results/PILOT_RESULTS.md) | [中文](../results/PILOT_RESULTS_ZH.md)
 - Full model benchmark: [English](../results/COLAB_FULL_BENCHMARK.md) | [中文](../results/COLAB_FULL_BENCHMARK_ZH.md)
 - IMU-event benchmark: [English](../results/IMU_EVENT_BENCHMARK.md) | [中文](../results/IMU_EVENT_BENCHMARK_ZH.md)

@@ -14,6 +14,10 @@ Technical work and individual contributions: [English](docs/TECHNICAL_CONTRIBUTI
 
 Reference documentation: data dictionary ([English](docs/DATA_DICTIONARY.md) / [中文](docs/DATA_DICTIONARY_ZH.md)) | data audit ([English](docs/DATA_AUDIT.md) / [中文](docs/DATA_AUDIT_ZH.md)) | processing pipeline ([English](docs/PIPELINE.md) / [中文](docs/PIPELINE_ZH.md)) | model validity ([English](docs/MODEL_VALIDITY.md) / [中文](docs/MODEL_VALIDITY_ZH.md))
 
+Sensor-placement photograph and evidence boundary: [English](docs/SENSOR_PLACEMENT.md) | [中文](docs/SENSOR_PLACEMENT_ZH.md)
+
+![Front view of the eight-node IMU and sEMG setup](docs/assets/sensor_setup_front.jpg)
+
 Multi-model evaluation: [experiment protocol](docs/EXPERIMENT_BENCHMARK.md) | [Google Colab runner](notebooks/ExoJump_Cloud_Benchmark.ipynb) | Full benchmark ([English](results/COLAB_FULL_BENCHMARK.md) / [中文](results/COLAB_FULL_BENCHMARK_ZH.md)) | Quick smoke test ([English](results/COLAB_QUICK_BENCHMARK.md) / [中文](results/COLAB_QUICK_BENCHMARK_ZH.md))
 
 IMU-only deployment experiment: [English](results/IMU_EVENT_BENCHMARK.md) | [中文](results/IMU_EVENT_BENCHMARK_ZH.md) | [machine-readable metrics](results/imu_event_metrics.json)
@@ -24,10 +28,10 @@ Compact IMU configurations: [English](results/COMPACT_SENSOR_CONFIGURATIONS.md) 
 
 Compact time-series Transformer benchmark and overfitting analysis: [English](results/TRANSFORMER_BENCHMARK.md) | [中文](results/TRANSFORMER_BENCHMARK_ZH.md) | [machine-readable metrics](results/transformer_metrics.json)
 
-The recovered experiment archive contains **six participants** and two movement classes. The confirmed right-leg setup used **eight IMU nodes: six around the thigh, one on the lower leg, and one at the ankle**. Because stable output was not available from every node in every acquisition batch, the historical processing retained four consistently usable nodes (R1–R4) for modelling. A total of 227 IMU/sEMG session pairs were reported during alignment; 224 paired sessions are present in the final aligned directory. The processing records show:
+The recovered experiment archive contains **six participants** and two movement classes. A front-view experiment photograph shows **eight black IMU modules arranged bilaterally, four per side: waist, anterior distal thigh just above the knee, anterior lower leg, and dorsum of the foot**. Because stable output was not available from every node in every acquisition batch, the historical processing retained four consistently usable IMU groups (R1–R4) for modelling. The photograph does not resolve the R1–R4-to-position mapping. A total of 227 IMU/sEMG session pairs were reported during alignment; 224 paired sessions are present in the final aligned directory. The processing records show:
 
 - 1 kHz target sampling for both modalities;
-- auditing of an eight-node right-leg IMU array and selection of four stable nodes;
+- auditing of an eight-node bilateral IMU array (four nodes per side) and selection of four stable nodes;
 - conversion of the retained nodes into 12 orientation channels (four sensors × roll/pitch/yaw);
 - millisecond-level timestamp reconstruction and sEMG/IMU alignment;
 - detection of IMU gaps and insertion of missing rows;
@@ -39,8 +43,8 @@ The cleaned pipeline in `src/exojump/` replaces hard-coded local paths with comm
 ## Demonstrated engineering work
 
 - Managed multi-device acquisition outputs spanning IMU, sEMG, foot-pressure, motion-capture, and jump-performance measurements.
-- Documented the eight-node right-leg IMU layout: thigh ×6, lower leg ×1, ankle ×1.
-- Documented eight sEMG channels along the right waist-to-lower-limb line and 16 plantar-pressure channels stored in the same acquisition tables.
+- Documented the photograph-supported eight-node bilateral IMU layout and preserved uncertainty about the R1–R4 hardware mapping.
+- Documented the right-side sEMG map: Channels 1–6 around the thigh, Channel 7 on the anterolateral lower leg, and Channel 8 on the medial ankle.
 - Reconstructed a millisecond timeline from device and wall clocks, detected dropped IMU samples, and paired 227 multimodal sessions.
 - Produced 224 aligned session pairs and a documented joint-angle missing-data workflow.
 - Built signal-quality, cross-modal correlation, PCA, and motion-cycle screening analyses.
@@ -149,4 +153,4 @@ Raw sEMG, IMU, motion-capture, body measurements, logs, videos, and participant 
 
 ## 中文说明
 
-本仓库整理了6名受试者参与的民用外骨骼 sEMG 与 IMU 多模态实验，目标任务为跳高/跳远动作识别。右腿共布置8个IMU节点（大腿6个、小腿1个、脚踝1个）；由于不同批次的有效节点存在差异，最终建模使用4个稳定节点。原始人体实验数据默认不上传 GitHub；仓库保留可复现代码、匿名汇总清单和方法说明。旧代码完整保存在 `legacy/`，主流程位于 `src/exojump/`。
+本仓库整理了6名受试者参与的民用外骨骼sEMG与IMU多模态实验，目标任务为跳高/跳远动作识别。实验照片显示8个黑色IMU模块左右对称布置，每侧4个，位置分别为腰部、大腿前侧靠近膝盖上方、小腿前侧和脚背；右侧sEMG共8路，其中`Channel_1–6`位于大腿环绕区域，`Channel_7`位于小腿前外侧，`Channel_8`位于脚踝内侧。由于不同批次的有效IMU节点存在差异，最终建模使用4个稳定IMU组R1–R4，但目前无法从照片确认其具体位置编号。完整人体实验数据保存在独立私有仓库；公开仓库仅包含可复现代码、无正脸设备照片、匿名汇总结果和方法说明。旧代码完整保存在`legacy/`，主流程位于`src/exojump/`。

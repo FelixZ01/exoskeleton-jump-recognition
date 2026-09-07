@@ -35,9 +35,9 @@ The project investigated the classification of vertical and long jumps using ine
 
 ### 3.2 Sensor and channel review
 
-- Confirmed an eight-node IMU arrangement on the right lower limb: six nodes around the thigh, one on the lower leg, and one at the ankle.
+- Confirmed an eight-node bilateral IMU arrangement with four nodes per side: waist, anterior distal thigh just above the knee, anterior lower leg, and dorsum of the foot.
 - Identified the 12 orientation channels from four consistently usable IMU nodes retained for modelling, with roll, pitch, and yaw from each node.
-- Confirmed eight sEMG channels positioned along the right side of the waist and lower limb.
+- Confirmed the right-side sEMG channel-position map: Channels 1–6 around the thigh, Channel 7 on the anterolateral lower leg, and Channel 8 on the medial ankle, while preserving uncertainty about exact muscle names.
 - Identified and separately managed 16 plantar-pressure channels stored in the same acquisition tables as the sEMG signals.
 - Audited changes in effective IMU availability between participants and acquisition batches, identifying a potential source of hardware-related domain shift.
 
@@ -196,6 +196,7 @@ The project investigated the classification of vertical and long jumps using ine
 - Data dictionary: [English](DATA_DICTIONARY.md) | [中文](DATA_DICTIONARY_ZH.md)
 - Processing pipeline: [English](PIPELINE.md) | [中文](PIPELINE_ZH.md)
 - Model-validity review: [English](MODEL_VALIDITY.md) | [中文](MODEL_VALIDITY_ZH.md)
+- Sensor-placement photograph and evidence: [English](SENSOR_PLACEMENT.md) | [中文](SENSOR_PLACEMENT_ZH.md)
 - Six-participant pilot results: [English](../results/PILOT_RESULTS.md) | [中文](../results/PILOT_RESULTS_ZH.md)
 - Full model comparison: [`../results/COLAB_FULL_BENCHMARK.md`](../results/COLAB_FULL_BENCHMARK.md)
 - IMU-event results: [`../results/IMU_EVENT_BENCHMARK.md`](../results/IMU_EVENT_BENCHMARK.md)

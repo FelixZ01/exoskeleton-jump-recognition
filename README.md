@@ -93,6 +93,26 @@ python scripts/build_dataset.py \
   --window-mode pressure_event
 ```
 
+For deployment without a pressure insole, build windows from the IMU-only
+angular-dynamics event detector and run the dedicated participant-held-out
+benchmark:
+
+```bash
+python scripts/build_dataset.py \
+  --aligned-root data/processed/aligned \
+  --output data/processed/jump_imu_event_windows.npz \
+  --window-size 2000 \
+  --window-mode imu_event
+
+python scripts/run_imu_event_experiment.py \
+  --dataset data/processed/jump_imu_event_windows.npz \
+  --output outputs/imu_event \
+  --device cuda
+```
+
+See [the IMU-only event experiment](docs/IMU_ONLY_EVENT_EXPERIMENT.md) for the
+method, agreement check, completion signal, and reportable comparison.
+
 Run the session-level feature baseline and all six nested participant-held-out CNN folds:
 
 ```bash

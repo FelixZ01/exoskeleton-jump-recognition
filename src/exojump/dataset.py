@@ -96,6 +96,53 @@ def pressure_event_center(semg: pd.DataFrame, smooth_samples: int = 51) -> int:
     return int(start + np.nanargmin(smoothed[start:stop]))
 
 
+def imu_event_center(imu: pd.DataFrame, smooth_samples: int = 101) -> int:
+    """Locate the dominant jump event from IMU orientation dynamics only.
+
+    The detector unwraps each angle, differentiates it, robustly scales every
+    channel using its median absolute deviation, and finds the maximum of the
+    smoothed multi-channel angular-velocity energy. Plantar pressure and sEMG
+    are deliberately excluded so the resulting windows can be deployed with
+    IMU sensors alone.
+    """
+
+    missing = [column for column in IMU_CHANNELS if column not in imu.columns]
+    if missing:
+        raise ValueError(f"Missing IMU channels: {', '.join(missing)}")
+    values = (
+        imu.loc[:, IMU_CHANNELS]
+        .apply(pd.to_numeric, errors="coerce")
+        .interpolate(limit_direction="both")
+        .to_numpy(dtype=np.float64)
+    )
+    if len(values) < 3 or np.isnan(values).all():
+        raise ValueError("IMU signal is empty")
+
+    # Unwrapping prevents the -180/180 degree boundary from appearing as motion.
+    angles = np.unwrap(np.deg2rad(values), axis=0)
+    velocity = np.diff(angles, axis=0, prepend=angles[:1])
+    median = np.nanmedian(velocity, axis=0)
+    mad = np.nanmedian(np.abs(velocity - median), axis=0)
+    fallback = np.nanstd(velocity, axis=0)
+    scale = 1.4826 * np.where(mad > 1e-8, mad, fallback)
+    scale = np.where(np.isfinite(scale) & (scale > 1e-8), scale, 1.0)
+    robust_velocity = np.clip((velocity - median) / scale, -20.0, 20.0)
+    energy = np.sqrt(np.nanmean(np.square(robust_velocity), axis=1))
+
+    window = max(3, min(smooth_samples, len(energy) // 5))
+    smoothed = (
+        pd.Series(energy)
+        .rolling(window=window, center=True, min_periods=1)
+        .mean()
+        .to_numpy()
+    )
+    margin = min(len(smoothed) // 10, 500)
+    start, stop = margin, len(smoothed) - margin
+    if stop <= start:
+        start, stop = 0, len(smoothed)
+    return int(start + np.nanargmax(smoothed[start:stop]))
+
+
 def _window_starts(
     length: int,
     window_size: int,
@@ -106,8 +153,8 @@ def _window_starts(
 ) -> list[int]:
     if mode == "sliding":
         return list(range(0, max(0, length - window_size + 1), stride))
-    if mode != "pressure_event" or event_center is None:
-        raise ValueError("window_mode must be 'sliding' or 'pressure_event'")
+    if mode not in {"pressure_event", "imu_event"} or event_center is None:
+        raise ValueError("window_mode must be 'sliding', 'pressure_event', or 'imu_event'")
     base = event_center - window_size // 2
     starts = sorted({base + offset for offset in event_offsets})
     valid = [start for start in starts if start >= 0 and start + window_size <= length]
@@ -145,7 +192,12 @@ def build_windows(
         length = min(len(imu), len(semg))
         imu_values = imu.loc[: length - 1, IMU_CHANNELS].apply(pd.to_numeric, errors="coerce").to_numpy(dtype=np.float32)
         semg_values = semg.loc[: length - 1, SEMG_CHANNELS].apply(pd.to_numeric, errors="coerce").to_numpy(dtype=np.float32)
-        event_center = pressure_event_center(semg) if window_mode == "pressure_event" else None
+        if window_mode == "pressure_event":
+            event_center = pressure_event_center(semg)
+        elif window_mode == "imu_event":
+            event_center = imu_event_center(imu)
+        else:
+            event_center = None
         starts = _window_starts(
             length,
             window_size,

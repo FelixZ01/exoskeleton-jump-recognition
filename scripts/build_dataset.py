@@ -13,7 +13,11 @@ def main() -> None:
     parser.add_argument("--window-size", type=int, default=1000)
     parser.add_argument("--stride", type=int, default=500)
     parser.add_argument("--max-missing-fraction", type=float, default=0.05)
-    parser.add_argument("--window-mode", choices=("sliding", "pressure_event"), default="sliding")
+    parser.add_argument(
+        "--window-mode",
+        choices=("sliding", "pressure_event", "imu_event"),
+        default="sliding",
+    )
     parser.add_argument("--event-offsets", default="-250,0,250")
     args = parser.parse_args()
     offsets = tuple(int(value) for value in args.event_offsets.split(",") if value.strip())

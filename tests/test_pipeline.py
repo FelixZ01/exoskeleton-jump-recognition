@@ -7,7 +7,13 @@ import numpy as np
 import pandas as pd
 
 from exojump.alignment import align_frames
-from exojump.dataset import discover_aligned_sessions, participant_split, pressure_event_center
+from exojump.dataset import (
+    discover_aligned_sessions,
+    imu_event_center,
+    participant_split,
+    pressure_event_center,
+)
+from exojump.constants import IMU_CHANNELS
 from exojump.imu import convert_raw_imu, parse_payload
 from exojump.imputation import impute_angles
 from exojump.metrics import aggregate_session_probabilities, classification_metrics
@@ -85,6 +91,15 @@ class PreprocessingTests(unittest.TestCase):
         center = pressure_event_center(pd.DataFrame({"sum_foot": pressure}), smooth_samples=21)
         self.assertGreaterEqual(center, 100)
         self.assertLess(center, 150)
+
+    def test_imu_event_center_finds_dominant_motion(self):
+        length = 500
+        values = np.zeros((length, len(IMU_CHANNELS)))
+        values[240:260] = np.linspace(0.0, 90.0, 20)[:, None]
+        values[260:] = 90.0
+        center = imu_event_center(pd.DataFrame(values, columns=IMU_CHANNELS), smooth_samples=21)
+        self.assertGreaterEqual(center, 230)
+        self.assertLess(center, 270)
 
     def test_recovered_archive_layout_is_discovered(self):
         with tempfile.TemporaryDirectory() as directory:

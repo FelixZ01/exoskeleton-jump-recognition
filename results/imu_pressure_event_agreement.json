@@ -1,0 +1,19 @@
+{
+  "matched_sessions": 222,
+  "sampling_rate_hz": 1000,
+  "signed_offset_ms": {
+    "mean": -50.090090090090094,
+    "median": -32.5,
+    "std": 367.4313210214386
+  },
+  "absolute_offset_ms": {
+    "mean": 234.4144144144144,
+    "median": 162.5,
+    "p90": 488.9000000000003
+  },
+  "agreement_fraction": {
+    "within_100_ms": 0.35135135135135137,
+    "within_250_ms": 0.7027027027027027,
+    "within_500_ms": 0.9009009009009009
+  }
+}

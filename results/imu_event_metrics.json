@@ -1,0 +1,32 @@
+{
+  "run_date": "2026-09-07",
+  "runtime": "Google Colab T4 GPU",
+  "status": "complete",
+  "event_detector": "imu_angular_velocity_energy",
+  "input_modality": "imu_only",
+  "participants": 6,
+  "sessions": 224,
+  "windows": 647,
+  "seeds": [42, 7, 123],
+  "epochs": 30,
+  "models": {
+    "cnn_imu": {
+      "balanced_accuracy_mean": 0.8999791144527988,
+      "balanced_accuracy_std": 0.012980902921928538,
+      "macro_f1_mean": 0.8925699686616233,
+      "macro_f1_std": 0.015616487713940837
+    },
+    "tcn_imu": {
+      "balanced_accuracy_mean": 0.9088717163278567,
+      "balanced_accuracy_std": 0.03502016738694636,
+      "macro_f1_mean": 0.9048460665299126,
+      "macro_f1_std": 0.031246669492685713
+    }
+  },
+  "pressure_centered_reference": {
+    "cnn_imu_balanced_accuracy_mean": 0.8734667551,
+    "cnn_imu_balanced_accuracy_std": 0.0304394607,
+    "cnn_imu_macro_f1_mean": 0.86828706,
+    "cnn_imu_macro_f1_std": 0.0314297542
+  }
+}

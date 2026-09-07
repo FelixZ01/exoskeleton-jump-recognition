@@ -51,3 +51,10 @@ python scripts/run_imu_event_experiment.py \
 
 Completion is indicated by `outputs/imu_event/RUN_COMPLETE` and the line
 `RUN_COMPLETE:` in the console. The output archive is `imu_event_results.zip`.
+
+## Formal result
+
+Using all 224 aligned sessions, the IMU-only event detector produced 647
+windows. CNN reached 90.0% ± 1.3% balanced accuracy and TCN reached 90.9% ±
+3.5%. The corresponding macro-F1 scores were 89.3% ± 1.6% and 90.5% ± 3.1%.
+See the [full result table](../results/IMU_EVENT_BENCHMARK.md).

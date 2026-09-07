@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 
-ARCHITECTURES = ("cnn", "bilstm", "tcn")
+ARCHITECTURES = ("cnn", "bilstm", "tcn", "transformer")
 MODALITIES = ("imu", "semg", "fusion")
 
 
@@ -17,7 +17,7 @@ def build_model(
     hidden_size: int = 64,
     dropout: float = 0.3,
 ):
-    """Build a CNN, bidirectional LSTM, or TCN without importing torch globally.
+    """Build a CNN, BiLSTM, TCN, or compact Transformer lazily.
 
     Every model accepts ``forward(imu, semg)``. Keeping one forward signature lets
     all architectures use the same participant splits, normalisation, training loop,
@@ -165,5 +165,60 @@ def build_model(
             values = select_inputs(imu, semg).transpose(1, 2)
             return self.classifier(self.temporal(self.input_projection(values)))
 
-    builders = {"cnn": CNN, "bilstm": BiLSTM, "tcn": TCN}
+    class TimeSeriesTransformer(nn.Module):
+        """Small Transformer encoder regularised for the six-person pilot."""
+
+        def __init__(self):
+            super().__init__()
+            # Reduce 2,000 samples to 250 tokens to control attention cost.
+            self.tokeniser = nn.Conv1d(
+                selected_channels,
+                hidden_size,
+                kernel_size=9,
+                stride=8,
+                padding=4,
+            )
+            layer = nn.TransformerEncoderLayer(
+                d_model=hidden_size,
+                nhead=4,
+                dim_feedforward=hidden_size * 2,
+                dropout=max(dropout, 0.4),
+                activation="gelu",
+                batch_first=True,
+                norm_first=True,
+            )
+            self.encoder = nn.TransformerEncoder(layer, num_layers=2)
+            self.classifier = nn.Sequential(
+                nn.LayerNorm(hidden_size),
+                nn.Dropout(max(dropout, 0.4)),
+                nn.Linear(hidden_size, classes),
+            )
+
+        @staticmethod
+        def positional_encoding(length: int, width: int, device, dtype):
+            positions = torch.arange(length, device=device, dtype=dtype).unsqueeze(1)
+            scales = torch.exp(
+                torch.arange(0, width, 2, device=device, dtype=dtype)
+                * (-torch.log(torch.tensor(10_000.0, device=device, dtype=dtype)) / width)
+            )
+            encoding = torch.zeros(length, width, device=device, dtype=dtype)
+            encoding[:, 0::2] = torch.sin(positions * scales)
+            encoding[:, 1::2] = torch.cos(positions * scales)
+            return encoding
+
+        def forward(self, imu, semg):
+            values = select_inputs(imu, semg).transpose(1, 2)
+            tokens = self.tokeniser(values).transpose(1, 2)
+            tokens = tokens + self.positional_encoding(
+                tokens.shape[1], tokens.shape[2], tokens.device, tokens.dtype
+            )
+            representation = self.encoder(tokens).mean(dim=1)
+            return self.classifier(representation)
+
+    builders = {
+        "cnn": CNN,
+        "bilstm": BiLSTM,
+        "tcn": TCN,
+        "transformer": TimeSeriesTransformer,
+    }
     return builders[architecture]()

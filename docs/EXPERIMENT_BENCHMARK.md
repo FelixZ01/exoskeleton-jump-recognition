@@ -17,8 +17,11 @@ The additional models are controls, not decorations. They test whether the repor
 | Convolutional network | Dual/single-branch 1D CNN | Raw event windows |
 | Recurrent network | Bidirectional LSTM | Downsampled raw event windows |
 | Temporal convolution | Residual dilated TCN | Raw event windows |
+| Attention network | Compact time-series Transformer encoder | Strided raw event-window tokens |
 
 Every neural architecture supports `imu`, `semg`, and `fusion` modes. The same saved NPZ, participant identities, session identities, window augmentation, and recording-level probability aggregation are used throughout.
+
+The Transformer is deliberately compact for this six-participant pilot. A strided convolution reduces each 2,000-sample window to 250 tokens before two encoder layers (four heads, hidden width 64, feed-forward width 128). Dropout 0.4, AdamW weight decay `1e-4`, participant-level validation, early stopping, and three repeated seeds reduce—but cannot eliminate—the overfitting risk. It is treated as a comparison model, not assumed to be superior merely because it uses attention.
 
 ## Validity safeguards
 
@@ -64,11 +67,22 @@ pip install -e '.[analysis,deep-learning,time-series]'
 python scripts/benchmark_deep_models.py \
   --dataset data/processed/jump_event_windows.npz \
   --output outputs/deep_architectures \
-  --architectures cnn,bilstm,tcn \
+  --architectures cnn,bilstm,tcn,transformer \
   --modalities fusion \
   --seeds 42,7,123 \
   --device auto
 ```
+
+For a focused formal Transformer comparison on full IMU, IMU+sEMG fusion, and the compact R3+R4 sensor configuration:
+
+```bash
+python scripts/run_transformer_experiment.py \
+  --dataset data/processed/jump_imu_event_windows.npz \
+  --output outputs/transformer_formal \
+  --device auto
+```
+
+The command writes per-fold learning histories, checkpoints, aggregate metrics, `transformer_summary.json`, a `RUN_COMPLETE` marker, and a downloadable ZIP archive. Mean best epoch versus completed epochs is retained as an additional overfitting/early-stopping diagnostic.
 
 ### 4. Modality ablation
 

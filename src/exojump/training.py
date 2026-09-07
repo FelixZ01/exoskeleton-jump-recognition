@@ -220,7 +220,16 @@ def train(
         modality=modality,
     ).to(resolved_device)
     parameter_count = sum(parameter.numel() for parameter in model.parameters())
-    optimiser = torch.optim.Adam(model.parameters(), lr=learning_rate)
+    # Weight decay is especially important for the compact Transformer because
+    # this pilot contains only six participants.
+    weight_decay = 1e-4 if architecture == "transformer" else 0.0
+    if architecture == "transformer":
+        optimiser = torch.optim.AdamW(
+            model.parameters(), lr=learning_rate, weight_decay=weight_decay
+        )
+    else:
+        # Preserve the optimiser used for all previously reported baselines.
+        optimiser = torch.optim.Adam(model.parameters(), lr=learning_rate)
     class_counts = np.bincount(y_train, minlength=2)
     class_weights = len(y_train) / (2 * np.maximum(class_counts, 1))
     loss_function = nn.CrossEntropyLoss(
@@ -340,6 +349,7 @@ def train(
         "best_validation_loss": best_validation_loss,
         "batch_size": batch_size,
         "learning_rate": learning_rate,
+        "weight_decay": weight_decay,
         "normalisation": normalisation,
         "history": history,
         "seed": seed,

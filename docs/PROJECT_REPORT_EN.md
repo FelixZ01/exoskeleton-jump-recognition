@@ -6,7 +6,7 @@ This project investigates the recognition of vertical and long jumps for a civil
 
 The formal dataset contains six participants, two movement classes, and 227 paired IMU–sEMG acquisition sessions. A total of 224 sessions were retained after strict temporal alignment. Pressure-event localisation and window-level quality control produced 643 event-centred windows from 222 eligible sessions. The central evaluation question was whether a model could recognise jump type for a participant who had not appeared in training, rather than merely memorising participant-specific or session-specific patterns.
 
-The current system is an exploratory research prototype. It demonstrates multimodal physiological-signal processing, leakage-aware machine learning, and reproducible research engineering; it is not yet a clinically validated or deployment-ready real-time product.
+The current system is an exploratory research prototype. Its completed evidence now includes pressure- and IMU-derived event localisation, classical and deep-learning baselines, CNN/TCN/BiLSTM/Transformer comparisons, repeated-seed evaluation, leave-one-sensor-out retraining, and compact-sensor experiments. It demonstrates multimodal physiological-signal processing, leakage-aware machine learning, and reproducible research engineering; it is not yet a clinically validated or deployment-ready real-time product.
 
 ## 2. Motivation and objectives
 
@@ -72,7 +72,9 @@ Event-centred IMU+sEMG windows
         ↓
 Participant-disjoint train/validation/test splits
         ↓
-Classical baselines and dual-branch 1D CNN evaluation
+Classical baselines and CNN/BiLSTM/TCN/Transformer evaluation
+        ↓
+Modality, sensor-node, and compact-configuration ablations
 ```
 
 ### 4.1 IMU decoding and timestamp reconstruction
@@ -125,6 +127,12 @@ The deep model contains separate temporal branches for the two signal types:
 
 GroupNorm was chosen instead of BatchNorm to avoid dependence on batch-level running statistics in a small-sample, cross-participant setting. Training also uses per-window normalisation, class-weighted cross-entropy, a participant-disjoint validation set, early stopping, and fixed random seeds.
 
+### 5.3 Extended time-series model suite
+
+The maintained benchmark applies the same participant splits and trial-level aggregation to logistic regression, RBF-SVM, random forest, MiniROCKET, CNN, BiLSTM, residual dilated TCN, and a compact time-series Transformer. The Transformer uses a stride-8 convolutional tokenizer, two encoder layers, four attention heads, dropout 0.4, AdamW weight decay, and validation-participant early stopping. This compact design adds an attention-based comparison while limiting the capacity and attention cost that would otherwise be inappropriate for a six-participant pilot.
+
+An IMU-derived event detector was also implemented so that movement localisation no longer depends on plantar pressure. Formal retraining then evaluated full IMU input, leave-one-IMU-node-out variants, R3+R4, R4-only, and R3-only configurations. These are retraining experiments—not test-time masking—so the results can support sensor-design decisions more directly.
+
 ## 6. Evaluation design
 
 A nested participant-held-out design was used:
@@ -163,9 +171,29 @@ sEMG was the strongest classical single modality. Simple IMU+sEMG feature concat
 
 Mean participant-level balanced accuracy across the three runs ranged from 77.2% to 93.3%. Event localisation raised mean balanced accuracy from 65.6% for arbitrary windows to 88.8%, indicating that event definition was a more important bottleneck than increasing model complexity.
 
+### 7.3 IMU-only event localisation and model comparison
+
+The IMU event detector retained all 224 aligned sessions and produced 647 windows without using pressure to identify the jump centre. Under the same nested participant-held-out protocol, the IMU-only CNN reached 90.00% ± 1.30% balanced accuracy and the full-IMU TCN reached **90.89% ± 3.50%**, the strongest full-sensor result. In the wider benchmark, CNN fusion reached 87.5% ± 1.6%, TCN fusion 84.5% ± 3.7%, MiniROCKET 82.3%, random forest 72.6%, logistic regression 67.6%, RBF-SVM 65.9%, and BiLSTM 49.7% balanced accuracy.
+
+### 7.4 Sensor-node and compact-configuration experiments
+
+Leave-one-node-out TCN retraining showed that removing R1 or R2 caused no meaningful loss, while removing R3 reduced balanced accuracy by 9.34 percentage points and removing R4 reduced it by 28.13 points relative to the 90.89% full-IMU baseline. R4 was therefore the most influential retained node in this dataset.
+
+The R3+R4 compact TCN retained 88.56% ± 0.23% balanced accuracy, only 2.33 points below the full model. R4 alone reached 84.47% ± 0.96%; R3 alone reached 46.00% ± 2.18%. R3+R4 consequently provides the most defensible reduced-sensor candidate, although the unresolved anatomical mapping prevents a placement-level hardware recommendation.
+
+### 7.5 Compact Transformer and overfitting diagnosis
+
+| Transformer input | Balanced accuracy | Macro-F1 | Parameters |
+|---|---:|---:|---:|
+| R3+R4 compact IMU | **89.47% ± 1.74%** | **89.29% ± 2.17%** | 70,722 |
+| Full IMU | 87.41% ± 8.59% | 86.56% ± 10.49% | 74,178 |
+| Full IMU+sEMG | 84.61% ± 3.63% | 82.39% ± 3.98% | 78,786 |
+
+R3+R4 was also the strongest Transformer input, but the Transformer did not surpass the full-IMU TCN and was less stable across seeds. All 54 Transformer folds stopped early. Very low final training losses and substantially higher validation losses show a genuine overfitting tendency, especially for fusion. Early stopping restored the best validation checkpoint, and the result is reported as controlled pilot evidence rather than evidence that attention is inherently superior.
+
 ## 8. Conclusions
 
-The project supports six main conclusions:
+The project supports nine main conclusions:
 
 1. Reliable multimodal modelling depends first on defensible device synchronisation.
 2. Participant-held-out evaluation substantially reduces the inflated results produced by random or resubstitution testing.
@@ -173,6 +201,9 @@ The project supports six main conclusions:
 4. Naive multimodal fusion can underperform a strong single-modality baseline.
 5. Pressure-based event localisation provides a large, repeatable improvement in IMU+sEMG classification.
 6. The current results establish feasibility for offline trial classification, not continuous real-time recognition, automatic exoskeleton tuning, or clinical performance.
+7. IMU-derived event localisation can remove the pressure dependency while retaining all 224 aligned trials.
+8. R4 carries the strongest node-level information and R3+R4 preserves most of the full-sensor performance, subject to confirmation of the physical node mapping.
+9. A compact Transformer is competitive, particularly with R3+R4, but TCN is the stronger and more stable full-sensor choice; explicit overfitting diagnostics are essential in this small cohort.
 
 ## 9. Technical contributions and demonstrated skills
 
@@ -184,8 +215,9 @@ The project demonstrates the ability to:
 - reconstruct and verify timestamps across independent acquisition devices;
 - implement millisecond alignment, dropped-sample detection, interpolation, and quality control;
 - design plantar-pressure-based movement-event localisation;
-- develop classical baselines and a dual-branch deep neural network;
+- develop classical baselines, MiniROCKET, CNN, BiLSTM, TCN, and a compact time-series Transformer;
 - use participant-held-out validation, early stopping, class weighting, and repeated-seed evaluation;
+- design IMU-only event localisation, leave-one-sensor-out retraining, compact-sensor comparisons, and learning-curve overfitting diagnostics;
 - identify and correct label-definition and data-leakage problems in an early prototype;
 - refactor scattered research scripts into a documented, tested, and reproducible GitHub project.
 
@@ -207,13 +239,13 @@ The present product claim is deliberately limited: the system provides a movemen
 
 1. Recover the physical R1–R4 mapping and sEMG channel-to-muscle order.
 2. Verify device-side sEMG processing and add filtering only if required.
-3. Extend evaluation to at least five random seeds and participant/session-level bootstrap intervals.
-4. Develop an IMU-only event detector and compare it with pressure-based localisation.
-5. Compare SVM, random forest, 1D ResNet, TCN, BiLSTM, and attention-based fusion.
-6. Quantify the contribution of each modality and fusion strategy through ablation studies.
+3. Confirm the IMU-versus-pressure event agreement with manually annotated take-off and landing times.
+4. Recruit a larger external cohort and evaluate cross-day and cross-device generalisation.
+5. Repeat the selected final TCN and compact Transformer with at least five seeds and prospective participants.
+6. Investigate why aligned sEMG does not improve the current deep models before attempting more complex fusion.
 7. Link jump height, distance, and exoskeleton settings to individual sessions.
 8. Extend classification to movement-quality scoring, performance prediction, and parameter recommendation.
-9. Recruit more participants and evaluate cross-day and cross-device generalisation.
+9. Validate R3/R4 physical placement before making a reduced-hardware recommendation.
 
 ## 12. Project outcomes and research significance
 
@@ -223,7 +255,7 @@ The project delivers an end-to-end multimodal workflow from experimental acquisi
 
 ### Methodological outcome
 
-Strict participant-disjoint evaluation exposed the information loss caused by arbitrary sliding windows. A plantar-pressure-based flight-phase detector was consequently introduced to construct event-centred samples. Under nested leave-one-participant-out evaluation across six participants and three random seeds, the event-centred dual-branch CNN achieved 88.8% mean balanced accuracy and 88.5% mean macro F1, substantially improving on arbitrary one-second windows.
+Strict participant-disjoint evaluation exposed the information loss caused by arbitrary sliding windows. Pressure- and IMU-derived event detectors were consequently introduced. The IMU-centred full-sensor TCN achieved 90.89% mean balanced accuracy, while R3+R4 retained 88.56% with TCN and reached 89.47% with the compact Transformer. Leave-one-node-out retraining and explicit learning-curve analysis added sensor-importance and overfitting evidence beyond a single headline accuracy.
 
 ### Practical relevance
 
@@ -240,6 +272,11 @@ The project highlights three central challenges in small-sample multimodal human
 - Processing pipeline: [`PIPELINE.md`](PIPELINE.md)
 - Model-validity review: [`MODEL_VALIDITY.md`](MODEL_VALIDITY.md)
 - Pilot results: [`../results/PILOT_RESULTS.md`](../results/PILOT_RESULTS.md)
-- Machine-readable metrics: [`../results/pilot_metrics.json`](../results/pilot_metrics.json)
+- Full model benchmark: [`../results/COLAB_FULL_BENCHMARK.md`](../results/COLAB_FULL_BENCHMARK.md)
+- IMU-event benchmark: [`../results/IMU_EVENT_BENCHMARK.md`](../results/IMU_EVENT_BENCHMARK.md)
+- Sensor ablation: [`../results/SENSOR_ABLATION.md`](../results/SENSOR_ABLATION.md)
+- Compact-sensor benchmark: [`../results/COMPACT_SENSOR_CONFIGURATIONS.md`](../results/COMPACT_SENSOR_CONFIGURATIONS.md)
+- Transformer benchmark and overfitting analysis: [`../results/TRANSFORMER_BENCHMARK.md`](../results/TRANSFORMER_BENCHMARK.md)
+- Machine-readable metrics: [`../results/transformer_metrics.json`](../results/transformer_metrics.json)
 - Core package: [`../src/exojump/`](../src/exojump/)
 - Command-line tools: [`../scripts/`](../scripts/)

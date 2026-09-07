@@ -18,6 +18,9 @@ The project investigated the classification of vertical and long jumps using ine
 | Movement-event localisation | Used plantar-pressure changes to locate the flight phase and constructed quality-controlled event-centred windows | 222 eligible sessions and 643 model windows |
 | Machine-learning baselines | Engineered statistical features and compared logistic-regression baselines using IMU, sEMG, pressure, and fused inputs | 67.8% balanced accuracy for the sEMG baseline |
 | Deep-learning modelling | Developed a dual-branch 1D CNN for IMU and sEMG, with early stopping, class weighting, and prediction aggregation | 88.8% mean balanced accuracy across three seeds |
+| Model benchmarking | Implemented and compared CNN, TCN, BiLSTM, compact Transformer, MiniROCKET, random forest, SVM, and logistic regression under a common protocol | Best full-IMU TCN balanced accuracy: 90.89% |
+| Sensor ablation | Retrained TCN after removing each IMU node and evaluated compact R3+R4, R4-only, and R3-only inputs | R3+R4 retained 88.56%; R4 was the most influential node |
+| Attention-model analysis | Built a regularised time-series Transformer and analysed learning curves, seed variation, parameter counts, and early stopping | R3+R4 Transformer: 89.47%; all folds checked for overfitting |
 | Generalisation assessment | Separated training, validation, and test data by participant to prevent identity leakage | Six-fold nested leave-one-participant-out evaluation |
 | Reproducible engineering | Organised legacy Python code into a documented project with configuration, command-line tools, tests, and anonymised manifests | Reproducible GitHub repository structure |
 
@@ -105,6 +108,16 @@ The project investigated the classification of vertical and long jumps using ine
 - Applied class-weighted cross-entropy, per-window normalisation, early stopping on an independent validation participant, and fixed random seeds to reduce overfitting.
 - Averaged probabilities across augmented windows from the same trial and reported final predictions at the recording level rather than treating correlated windows as independent samples.
 
+### 7.3 Multi-model, sensor-ablation, and Transformer experiments
+
+- Implemented a shared PyTorch interface for CNN, BiLSTM, residual dilated TCN, and compact time-series Transformer architectures, alongside classical and MiniROCKET baselines.
+- Built an IMU-derived jump-event detector that retained all 224 aligned trials and produced 647 event-centred windows without requiring plantar pressure at inference.
+- Ran full nested participant-held-out comparisons across six test participants and three random seeds, with recording-level aggregation and participant-clustered uncertainty estimates.
+- Conducted leave-one-IMU-node-out retraining rather than relying on test-time masking, identifying R4 as the most influential retained node.
+- Evaluated R3+R4, R4-only, and R3-only hardware-reduction candidates; R3+R4 preserved most of the full-sensor performance.
+- Designed a small-sample-aware Transformer with strided tokenisation, two encoder layers, dropout 0.4, AdamW weight decay, and early stopping.
+- Diagnosed rather than concealed Transformer overfitting by comparing training and validation losses, best and completed epochs, parameter counts, and variation across seeds.
+
 ## 8. Experimental design and validity controls
 
 - Defined generalisation to previously unseen participants as the primary evaluation objective.
@@ -123,6 +136,10 @@ The project investigated the classification of vertical and long jumps using ine
   - **88.8% ± 1.2 percentage points** mean balanced accuracy;
   - **88.5% ± 1.3 percentage points** mean macro-F1.
 - Balanced accuracy improved from 65.6% with arbitrary windows to 88.8% with event-centred windows, demonstrating the importance of reliable event definition.
+- The IMU-event full-sensor TCN achieved **90.89% ± 3.50%** balanced accuracy; the corresponding CNN achieved **90.00% ± 1.30%**.
+- Removing R4 reduced TCN balanced accuracy by 28.13 percentage points, while the R3+R4 compact TCN retained **88.56% ± 0.23%**.
+- The R3+R4 Transformer reached **89.47% ± 1.74%** balanced accuracy, but its larger seed variation and early-stopping behaviour did not justify replacing the TCN as the main model.
+- Verified that all 54 Transformer folds stopped early and documented the train–validation loss gaps as evidence of residual overfitting risk.
 - Documented limitations including the small cohort, sensor-configuration variation, incomplete anatomical channel mapping, and uncertainty about device-side sEMG filtering rather than presenting pilot findings as deployment-level performance.
 
 ## 10. Reproducible engineering and documentation
@@ -130,7 +147,7 @@ The project investigated the classification of vertical and long jumps using ine
 - Reorganised fragmented Python scripts by acquisition, preprocessing, analysis, plotting, motion capture, and modelling purpose.
 - Preserved legacy code for provenance while establishing a clearer main pipeline for future use.
 - Replaced hard-coded paths in the maintained workflow with configuration files and command-line arguments.
-- Modularised IMU conversion, modality alignment, interpolation, dataset construction, baseline evaluation, CNN training, and cross-validation.
+- Modularised IMU conversion, modality alignment, interpolation, pressure- and IMU-event dataset construction, classical/deep benchmarking, sensor ablation, CNN/TCN/BiLSTM/Transformer training, and cross-validation.
 - Added tests for critical preprocessing steps, anonymised data inventories, machine-readable experiment metrics, and reproducible commands.
 - Produced documentation covering data auditing, field definitions, pipeline stages, model validity, privacy boundaries, and the complete project workflow in both Chinese and English.
 - Applied anonymisation and Git exclusion rules to human-participant data, publishing code and aggregate results without releasing raw participant recordings.
@@ -157,9 +174,10 @@ The project investigated the classification of vertical and long jumps using ine
 
 - Statistical feature engineering and logistic-regression baselines;
 - Deep-learning development with PyTorch;
-- 1D CNNs, multi-branch architectures, and multimodal feature fusion;
+- 1D CNNs, residual dilated TCNs, BiLSTMs, compact time-series Transformers, MiniROCKET, multi-branch architectures, and multimodal feature fusion;
 - Class-imbalance handling, early stopping, regularisation, and repeated random-seed experiments;
 - Participant-level cross-validation, data-leakage prevention, and generalisation assessment;
+- Leave-one-sensor-out retraining, compact-sensor design, learning-curve diagnosis, and overfitting analysis;
 - Comparative experimentation, error analysis, limitation identification, and model interpretation.
 
 ### Biosignals and experimental research
@@ -179,6 +197,10 @@ The project investigated the classification of vertical and long jumps using ine
 - Processing pipeline: [`PIPELINE.md`](PIPELINE.md)
 - Model-validity review: [`MODEL_VALIDITY.md`](MODEL_VALIDITY.md)
 - Six-participant results: [`../results/PILOT_RESULTS.md`](../results/PILOT_RESULTS.md)
+- Full model comparison: [`../results/COLAB_FULL_BENCHMARK.md`](../results/COLAB_FULL_BENCHMARK.md)
+- IMU-event results: [`../results/IMU_EVENT_BENCHMARK.md`](../results/IMU_EVENT_BENCHMARK.md)
+- Sensor and compact-configuration results: [`../results/SENSOR_ABLATION.md`](../results/SENSOR_ABLATION.md), [`../results/COMPACT_SENSOR_CONFIGURATIONS.md`](../results/COMPACT_SENSOR_CONFIGURATIONS.md)
+- Transformer benchmark and overfitting analysis: [`../results/TRANSFORMER_BENCHMARK.md`](../results/TRANSFORMER_BENCHMARK.md)
 - Core implementation: [`../src/exojump/`](../src/exojump/)
 - Executable scripts: [`../scripts/`](../scripts/)
 

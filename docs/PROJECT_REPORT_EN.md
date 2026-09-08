@@ -15,7 +15,7 @@ An exoskeleton may require different control strategies and parameter settings f
 - IMUs describe segment orientation and movement dynamics;
 - sEMG captures neuromuscular activation during movement;
 - plantar pressure represents support, take-off, flight, and landing phases;
-- motion capture and jump-performance measurements may support later movement-quality or regression studies.
+- motion capture and body measurements were used to calculate and verify participant-specific jump height, providing an objective performance reference for sensor-data analysis.
 
 The project objectives were to:
 
@@ -45,7 +45,7 @@ Both movement classes are present for every participant. P03–P06 each have 20 
 
 **Plantar pressure.** The same device-processed CSV tables also contain 16 plantar-pressure channels (`FP_CH41–FP_CH48` and `FP_CH51–FP_CH58`) and an aggregate `sum_foot` or `count_foot` signal. Although stored beside sEMG, pressure is treated as a separate modality throughout the pipeline.
 
-**Additional records.** The archive includes motion-capture files, jump-height and jump-distance measurements, and body measurements. These records have not yet been mapped reliably to every session and were therefore excluded from the current classification results.
+**Movement-performance data.** Motion-capture recordings and body measurements were used to calculate and verify each participant's jump height; long-jump trials also included jump-distance measurements. These continuous outcomes describe individual movement performance and provide a reference for analysing relationships with IMU, sEMG, and plantar-pressure signals. The present model classifies vertical versus long jumps, so stature, body dimensions, and measured jump height were not used as classification inputs, preventing identification through participant-specific characteristics.
 
 ### 3.3 Data scale
 
@@ -232,7 +232,7 @@ The present product claim is deliberately limited: the system provides a movemen
 - Device-side sEMG filtering has not been fully documented.
 - Two aligned sessions did not produce complete quality-controlled event windows.
 - The task is offline classification of pre-recorded trials, not continuous streaming recognition.
-- Motion capture, jump performance, and exoskeleton parameters are not yet reliably linked to every session.
+- The current classification study does not yet model the continuous relationship between sensor features and measured jump height or distance.
 - Cross-day, cross-device, and external-cohort validation have not been performed.
 
 ## 11. Next research steps
@@ -243,7 +243,7 @@ The present product claim is deliberately limited: the system provides a movemen
 4. Recruit a larger external cohort and evaluate cross-day and cross-device generalisation.
 5. Repeat the selected final TCN and compact Transformer with at least five seeds and prospective participants.
 6. Investigate why aligned sEMG does not improve the current deep models before attempting more complex fusion.
-7. Link jump height, distance, and exoskeleton settings to individual sessions.
+7. Extend the dataset to jump-height and jump-distance regression and analyse their relationship with exoskeleton settings.
 8. Extend classification to movement-quality scoring, performance prediction, and parameter recommendation.
 9. Validate R3/R4 physical placement before making a reduced-hardware recommendation.
 

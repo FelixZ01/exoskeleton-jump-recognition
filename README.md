@@ -42,7 +42,7 @@ The cleaned pipeline in `src/exojump/` replaces hard-coded local paths with comm
 
 ## Demonstrated engineering work
 
-- Managed multi-device acquisition outputs spanning IMU, sEMG, foot-pressure, motion-capture, and jump-performance measurements.
+- Managed multi-device acquisition outputs spanning IMU, sEMG, foot pressure, motion capture, and jump-performance measurements; motion capture and body measurements were used to calculate and verify participant-specific jump height.
 - Reconstructed the eight-node bilateral IMU layout and the most likely proximal-to-distal R1–R4 mapping from photographs, conversion code, legacy processing constraints, and sensor-ablation behaviour.
 - Documented the right-side sEMG map: Channels 1–6 around the thigh, Channel 7 on the anterolateral lower leg, and Channel 8 on the medial ankle.
 - Reconstructed a millisecond timeline from device and wall clocks, detected dropped IMU samples, and paired 227 multimodal sessions.
@@ -153,4 +153,4 @@ Raw sEMG, IMU, motion-capture, body measurements, logs, videos, and participant 
 
 ## 中文说明
 
-本仓库整理了6名受试者参与的民用外骨骼sEMG与IMU多模态实验，目标任务为跳高/跳远动作识别。实验照片显示8个黑色IMU模块左右对称布置，每侧4个，位置分别为腰部、大腿前侧靠近膝盖上方、小腿前侧和脚背；右侧sEMG共8路，其中`Channel_1–6`位于大腿环绕区域，`Channel_7`位于小腿前外侧，`Channel_8`位于脚踝内侧。综合历史转换顺序、旧程序中的生物力学约束、右侧sEMG配置和消融结果，建模节点的工作映射为：**R1腰/髋部、R2大腿前侧膝上、R3小腿前侧、R4脚背**，且较大概率来自右侧链；由于设备编号未保留，该侧别及编号映射标记为中等置信度。完整人体实验数据保存在独立私有仓库；公开仓库仅包含可复现代码、无正脸设备照片、匿名汇总结果和方法说明。旧代码完整保存在`legacy/`，主流程位于`src/exojump/`。
+本仓库整理了6名受试者参与的民用外骨骼sEMG与IMU多模态实验，目标任务为跳高/跳远动作识别。实验照片显示8个黑色IMU模块左右对称布置，每侧4个，位置分别为腰部、大腿前侧靠近膝盖上方、小腿前侧和脚背；右侧sEMG共8路，其中`Channel_1–6`位于大腿环绕区域，`Channel_7`位于小腿前外侧，`Channel_8`位于脚踝内侧。动作捕捉与身体测量用于计算和核验每名参与者的实际跳跃高度，为传感器信号分析提供客观的动作表现参照。综合历史转换顺序、旧程序中的生物力学约束、右侧sEMG配置和消融结果，建模节点的工作映射为：**R1腰/髋部、R2大腿前侧膝上、R3小腿前侧、R4脚背**，且较大概率来自右侧链；由于设备编号未保留，该侧别及编号映射标记为中等置信度。完整人体实验数据保存在独立私有仓库；公开仓库仅包含可复现代码、无正脸设备照片、匿名汇总结果和方法说明。旧代码完整保存在`legacy/`，主流程位于`src/exojump/`。

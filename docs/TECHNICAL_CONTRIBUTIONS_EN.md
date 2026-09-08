@@ -10,7 +10,7 @@ The project investigated the classification of vertical and long jumps using ine
 
 | Workstream | Main work completed or supported | Scale and output |
 |---|---|---|
-| Human-participant data collection | Assisted participants with the exoskeleton experiment and collected vertical-jump, long-jump, and motion-capture recordings | 6 participants and 2 movement classes |
+| Human-participant data collection | Assisted participants with the exoskeleton experiment, collected vertical- and long-jump motion-capture data, and used body measurements to verify jump height | 6 participants and 2 movement classes |
 | Sensor-data management | Organised IMU, sEMG, plantar-pressure, motion-capture, jump-performance, and experimental log files | Approximately 2.30 GB across 4,607 files after video exclusion |
 | Data inventory and pairing | Grouped files by participant, movement, and acquisition time; matched IMU and sEMG recordings | 227 IMU–sEMG session pairs |
 | Time synchronisation | Inspected timestamps from separate devices, reconstructed a common millisecond timeline, and handled differences in valid start and end times | 224 fully aligned sessions |
@@ -30,7 +30,7 @@ The project investigated the classification of vertical and long jumps using ine
 
 - Participated in collecting civilian-exoskeleton jump data from six participants.
 - Supported repeated trials of vertical and long jumps, experimental record keeping, and file archiving.
-- Collected and organised IMU, sEMG, plantar-pressure, and motion-capture recordings, together with supplementary jump-height, jump-distance, body-measurement, and experimental-log files.
+- Collected and organised IMU, sEMG, plantar-pressure, and motion-capture recordings; combined motion capture with body measurements to calculate and verify participant-specific jump height; and organised jump-distance and experimental-log records.
 - Checked device connectivity, file generation, and recording validity during acquisition to reduce unusable trials caused by interruptions or missing outputs.
 
 ### 3.2 Sensor and channel review

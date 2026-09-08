@@ -11,7 +11,7 @@
 | `R3_Roll`, `R3_Pitch`, `R3_Yaw` | Three orientation channels for retained sensor group R3 |
 | `R4_Roll`, `R4_Pitch`, `R4_Yaw` | Three orientation channels for retained sensor group R4 |
 
-The confirmed experimental layout used eight IMU nodes bilaterally, with four on each side at the waist, anterior distal thigh just above the knee, anterior lower leg, and dorsum of the foot. R1–R4 are the four retained nodes used by the historical conversion pipeline. Conversion order, legacy biomechanical constraints, right-side sEMG placement, and ablation behaviour support the working mapping R1 waist/hip, R2 anterior distal thigh, R3 anterior lower leg, and R4 dorsum of foot, most likely on the right side. The mapping is assigned moderate confidence because device IDs and physical angle units were not preserved; original R1–R4 field names are retained for traceability.
+The confirmed experimental layout used eight IMU nodes bilaterally, with four on each side at the waist, anterior distal thigh just above the knee, anterior lower leg, and dorsum of the foot. R1–R4 are the four retained right-side nodes used by the historical conversion pipeline. `R` denotes right and numbering proceeds from top to bottom: R1 right waist/hip, R2 right anterior distal thigh, R3 right anterior lower leg, and R4 right dorsum of foot. Original R1–R4 field names are retained for traceability.
 
 ## Device-processed sEMG table
 

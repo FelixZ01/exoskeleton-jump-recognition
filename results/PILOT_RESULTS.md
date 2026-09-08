@@ -35,7 +35,7 @@ This is a substantial and repeatable improvement over arbitrary 1-second windows
 - Six participants are enough for a pilot software demonstration, not a strong generalisation claim.
 - P01 used a different effective IMU configuration from later participants, creating a hardware-domain shift.
 - Arbitrary sliding windows contained preparation or recovery rather than the jump event itself; pressure-centred windows substantially improved the pilot result.
-- Overall IMU and sEMG positions are now documented, but the retained R1–R4 IMU order, exact sEMG muscle names, and device-side filtering remain unresolved.
+- R1–R4 correspond to the right waist/hip, distal thigh, anterior lower leg, and dorsum of foot; exact sEMG muscle names and device-side filtering remain unresolved.
 
 ## Highest-priority next experiments
 

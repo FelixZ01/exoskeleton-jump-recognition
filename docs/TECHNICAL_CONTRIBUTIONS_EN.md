@@ -19,7 +19,7 @@ The project investigated the classification of vertical and long jumps using ine
 | Machine-learning baselines | Engineered statistical features and compared logistic-regression baselines using IMU, sEMG, pressure, and fused inputs | 67.8% balanced accuracy for the sEMG baseline |
 | Deep-learning modelling | Developed a dual-branch 1D CNN for IMU and sEMG, with early stopping, class weighting, and prediction aggregation | 88.8% mean balanced accuracy across three seeds |
 | Model benchmarking | Implemented and compared CNN, TCN, BiLSTM, compact Transformer, MiniROCKET, random forest, SVM, and logistic regression under a common protocol | Best full-IMU TCN balanced accuracy: 90.89% |
-| Sensor ablation | Retrained TCN after removing each IMU node and evaluated compact R3+R4, R4-only, and R3-only inputs | R3+R4 retained 88.56%; R4 was the most influential node |
+| Sensor ablation | Retrained TCN after removing each right-side IMU node and evaluated lower-leg R3 plus foot R4, R4-only, and R3-only inputs | R3+R4 retained 88.56%; right-foot R4 was the most influential node |
 | Attention-model analysis | Built a regularised time-series Transformer and analysed learning curves, seed variation, parameter counts, and early stopping | R3+R4 Transformer: 89.47%; all folds checked for overfitting |
 | Generalisation assessment | Separated training, validation, and test data by participant to prevent identity leakage | Six-fold nested leave-one-participant-out evaluation |
 | Reproducible engineering | Organised legacy Python code into a documented project with configuration, command-line tools, tests, and anonymised manifests | Reproducible GitHub repository structure |
@@ -113,8 +113,8 @@ The project investigated the classification of vertical and long jumps using ine
 - Implemented a shared PyTorch interface for CNN, BiLSTM, residual dilated TCN, and compact time-series Transformer architectures, alongside classical and MiniROCKET baselines.
 - Built an IMU-derived jump-event detector that retained all 224 aligned trials and produced 647 event-centred windows without requiring plantar pressure at inference.
 - Ran full nested participant-held-out comparisons across six test participants and three random seeds, with recording-level aggregation and participant-clustered uncertainty estimates.
-- Conducted leave-one-IMU-node-out retraining rather than relying on test-time masking, identifying R4 as the most influential retained node.
-- Evaluated R3+R4, R4-only, and R3-only hardware-reduction candidates; R3+R4 preserved most of the full-sensor performance.
+- Conducted leave-one-IMU-node-out retraining rather than relying on test-time masking, identifying right dorsum-of-foot R4 as the most influential retained node.
+- Evaluated right lower-leg R3 plus right-foot R4, R4-only, and R3-only hardware-reduction candidates; R3+R4 preserved most of the full-sensor performance.
 - Designed a small-sample-aware Transformer with strided tokenisation, two encoder layers, dropout 0.4, AdamW weight decay, and early stopping.
 - Diagnosed rather than concealed Transformer overfitting by comparing training and validation losses, best and completed epochs, parameter counts, and variation across seeds.
 
@@ -140,7 +140,7 @@ The project investigated the classification of vertical and long jumps using ine
 - Removing R4 reduced TCN balanced accuracy by 28.13 percentage points, while the R3+R4 compact TCN retained **88.56% ± 0.23%**.
 - The R3+R4 Transformer reached **89.47% ± 1.74%** balanced accuracy, but its larger seed variation and early-stopping behaviour did not justify replacing the TCN as the main model.
 - Verified that all 54 Transformer folds stopped early and documented the train–validation loss gaps as evidence of residual overfitting risk.
-- Documented limitations including the small cohort, sensor-configuration variation, incomplete anatomical channel mapping, and uncertainty about device-side sEMG filtering rather than presenting pilot findings as deployment-level performance.
+- Documented limitations including the small cohort, sensor-configuration variation, unresolved sEMG muscle labels, and uncertainty about device-side filtering, clearly separating offline validation from deployment-level performance.
 
 ## 10. Reproducible engineering and documentation
 

@@ -14,7 +14,7 @@ Each configuration was evaluated over all six held-out participants with seeds 4
 | Full IMU | 87.41% ± 8.59 | 86.56% ± 10.49 | 74,178 | 5.28 | 10.28 |
 | Full IMU + sEMG | 84.61% ± 3.63 | 82.39% ± 3.98 | 78,786 | 4.67 | 9.67 |
 
-The compact R3+R4 Transformer was the strongest attention configuration. It was 0.91 percentage points above the R3+R4 TCN mean (88.56%), although its seed variation was much larger (1.74 versus 0.23 percentage points). It remained 1.42 percentage points below the best full-sensor TCN result (90.89%). Therefore, this experiment supports the Transformer as a competitive comparison model, but does not establish it as superior to the TCN.
+The compact right-lower-leg R3 plus right-foot R4 Transformer was the strongest attention configuration. It was 0.91 percentage points above the R3+R4 TCN mean (88.56%), although its seed variation was much larger (1.74 versus 0.23 percentage points). It remained 1.42 percentage points below the best full-sensor TCN result (90.89%). The Transformer therefore provides a competitive comparison but does not outperform the TCN overall.
 
 Adding sEMG did not help this Transformer: fusion was 2.81 percentage points below full IMU balanced accuracy and required 4,608 additional parameters. This agrees with the broader project finding that the present sEMG/pressure stream is not yet a reliable source of extra discriminative information after alignment and preprocessing.
 

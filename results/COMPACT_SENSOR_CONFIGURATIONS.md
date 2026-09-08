@@ -20,7 +20,6 @@ leave-one-node-out results, this indicates that R4 is the essential node and R3
 adds complementary motion information. R1 and R2 may be redundant or noisy in
 this pilot dataset.
 
-The R3+R4 configuration is therefore the strongest compact candidate for a
-future product-tuning study. This is a model-level finding, not yet a hardware
-removal recommendation: anatomical node mapping must be confirmed and the
-result replicated in a larger prospective sample.
+The right lower-leg and foot R3+R4 configuration is therefore the strongest
+compact candidate for a future product-tuning study. Permanent hardware removal
+would still require replication in a larger prospective sample.

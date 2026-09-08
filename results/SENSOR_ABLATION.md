@@ -15,13 +15,13 @@ three random seeds, and early stopping. The full four-node TCN baseline achieved
 
 ## Interpretation
 
-R4 carried the most discriminative information, followed by R3. Removing R1 or
-R2 did not reduce mean performance, suggesting redundancy or participant-
-specific noise within this pilot dataset. A product-oriented reduced sensor
-configuration should retain R4 and R3, but physical placement recommendations
-must wait until the historical R1–R4 identifiers are mapped conclusively to
-anatomical locations. The six-person sample is too small to justify permanent
-hardware removal without a larger prospective validation study.
+R4 (right dorsum of foot) carried the most discriminative information, followed
+by R3 (right anterior lower leg). Removing R1 (right waist/hip) or R2 (right
+distal thigh) did not reduce mean performance, suggesting redundancy or
+participant-specific noise within this pilot dataset. A reduced sensor
+configuration should retain the right foot and lower-leg nodes. The six-person
+sample is too small to justify permanent hardware removal without a larger
+prospective validation study.
 
 The next experiment therefore retrains compact R3+R4, R4-only, and R3-only
 TCNs rather than inferring a reduced design from occlusion alone.

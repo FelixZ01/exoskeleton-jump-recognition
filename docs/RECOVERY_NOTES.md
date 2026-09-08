@@ -14,15 +14,15 @@
 
 ## Inferred and requiring confirmation
 
-- The IMU payload-to-R1–R4 mapping was inferred from matching packed and converted rows as group order `[4, 2, 1, 3]` (zero based).
-- The precise mapping from retained R1–R4 groups to the eight physical positions and the angle units was not documented.
+- Matching packed and converted rows recovered the IMU payload-to-R1–R4 group order as `[4, 2, 1, 3]` (zero based).
+- In the acquisition convention, `R` denotes the right side and R1–R4 follow the body from top to bottom: right waist/hip, right distal thigh, right anterior lower leg, and right dorsum of foot. The physical angle units were not documented.
 - The exact muscle names underlying the confirmed sEMG channel positions were not documented.
 - Two missing/failed source sessions and the one-file discrepancy between report and output require manual reconciliation.
 - The available study dataset contains six participants and should be reported as a six-person pilot.
 
 ## Recommended next recovery targets
 
-1. Device-ID or labelled cable/placement record resolving the retained side and R1–R4 node order; the available photograph establishes the overall layout but not the IDs.
+1. Device documentation confirming the physical angle units and sensor-axis convention.
 2. Participant consent/ethics and data-ownership records.
 3. Hardware packet format defining all eight IMU groups.
 4. Experiment notebook linking jump-height/distance measurements to session timestamps.

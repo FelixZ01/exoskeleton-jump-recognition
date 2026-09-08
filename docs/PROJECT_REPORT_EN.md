@@ -39,7 +39,7 @@ Both movement classes are present for every participant. P03–P06 each have 20 
 
 ### 3.2 Sensor configuration
 
-**IMUs.** Eight physical IMU nodes were arranged bilaterally, with four per side at the waist, anterior distal thigh just above the knee, anterior lower leg, and dorsum of the foot. Formal acquisition packets contained eight three-value sensor slots. A data audit found valid values in all eight slots for the 27 P01 recordings, whereas four slots provided stable non-zero values in the remaining 200 recordings and the other slots were zero-filled. The historical processing pipeline therefore retained four stable nodes, denoted R1–R4. Each retained node contributes roll, pitch, and yaw, giving 12 orientation channels. Historical conversion order, hip–knee–ankle constraints in the legacy code, the right-side sEMG setup, and node-ablation behaviour support the working mapping **R1 waist/hip, R2 anterior distal thigh, R3 anterior lower leg, and R4 dorsum of foot**, most likely from the right-side chain. The mapping has moderate confidence because hardware IDs were not preserved.
+**IMUs.** Eight physical IMU nodes were arranged bilaterally, with four per side at the waist, anterior distal thigh just above the knee, anterior lower leg, and dorsum of the foot. Formal acquisition packets contained eight three-value sensor slots. A data audit found valid values in all eight slots for the 27 P01 recordings, whereas four slots provided stable non-zero values in the remaining 200 recordings and the other slots were zero-filled. The historical processing pipeline retained the right-side four-node chain. Each node contributes roll, pitch, and yaw, giving 12 orientation channels. In the acquisition naming convention, `R` denotes right and numbering follows the body from top to bottom: **R1 right waist/hip, R2 right anterior distal thigh, R3 right anterior lower leg, and R4 right dorsum of foot**.
 
 **sEMG.** Eight sEMG channels were acquired on the right side. `Channel_1`–`Channel_6` correspond to six electrodes distributed around the thigh, `Channel_7` to the anterolateral lower leg, and `Channel_8` to the medial ankle. Exact muscle names remain unavailable, so the analysis does not attach unverified physiological labels to these positions.
 
@@ -179,7 +179,7 @@ The IMU event detector retained all 224 aligned sessions and produced 647 window
 
 Leave-one-node-out TCN retraining showed that removing R1 or R2 caused no meaningful loss, while removing R3 reduced balanced accuracy by 9.34 percentage points and removing R4 reduced it by 28.13 points relative to the 90.89% full-IMU baseline. R4 was therefore the most influential retained node in this dataset.
 
-The R3+R4 compact TCN retained 88.56% ± 0.23% balanced accuracy, only 2.33 points below the full model. R4 alone reached 84.47% ± 0.96%; R3 alone reached 46.00% ± 2.18%. Under the working mapping, R3+R4 represents the anterior-lower-leg and dorsum-of-foot pair and is the strongest two-node configuration. Confidence in this placement-level interpretation is limited by the missing historical hardware IDs.
+The R3+R4 compact TCN retained 88.56% ± 0.23% balanced accuracy, only 2.33 points below the full model. R4 alone reached 84.47% ± 0.96%; R3 alone reached 46.00% ± 2.18%. R3+R4 represents the right anterior-lower-leg and right dorsum-of-foot pair and is the strongest two-node configuration.
 
 ### 7.5 Compact Transformer and overfitting diagnosis
 
@@ -202,7 +202,7 @@ The project supports nine main conclusions:
 5. Pressure-based event localisation provides a large, repeatable improvement in IMU+sEMG classification.
 6. The current results establish feasibility for offline trial classification, not continuous real-time recognition, automatic exoskeleton tuning, or clinical performance.
 7. IMU-derived event localisation can remove the pressure dependency while retaining all 224 aligned trials.
-8. R4 carries the strongest node-level information and R3+R4 preserves most of the full-sensor performance, subject to confirmation of the physical node mapping.
+8. Right dorsum-of-foot R4 carries the strongest node-level information, while the right lower-leg R3 plus right-foot R4 pair preserves most of the full-sensor performance.
 9. A compact Transformer is competitive, particularly with R3+R4, but TCN is the stronger and more stable full-sensor choice; explicit overfitting diagnostics are essential in this small cohort.
 
 ## 9. Technical contributions and demonstrated skills
@@ -227,7 +227,6 @@ The present product claim is deliberately limited: the system provides a movemen
 
 - The study includes only six participants.
 - Effective IMU availability differed between acquisition batches.
-- The proximal-to-distal R1–R4 working map is supported by several records but lacks direct hardware-ID verification.
 - sEMG channel-to-position mapping is confirmed, but exact channel-to-muscle mapping remains unknown.
 - Device-side sEMG filtering has not been fully documented.
 - Two aligned sessions did not produce complete quality-controlled event windows.
@@ -237,7 +236,7 @@ The present product claim is deliberately limited: the system provides a movemen
 
 ## 11. Next research steps
 
-1. Validate the R1–R4 working map through device records or a small calibration experiment, and confirm the exact muscles underlying the known sEMG positions.
+1. Use a small calibration experiment to verify IMU axis orientation and confirm the exact muscles underlying the known sEMG positions.
 2. Verify device-side sEMG processing and add filtering only if required.
 3. Confirm the IMU-versus-pressure event agreement with manually annotated take-off and landing times.
 4. Recruit a larger external cohort and evaluate cross-day and cross-device generalisation.
@@ -245,7 +244,7 @@ The present product claim is deliberately limited: the system provides a movemen
 6. Investigate why aligned sEMG does not improve the current deep models before attempting more complex fusion.
 7. Extend the dataset to jump-height and jump-distance regression and analyse their relationship with exoskeleton settings.
 8. Extend classification to movement-quality scoring, performance prediction, and parameter recommendation.
-9. Validate R3/R4 physical placement before making a reduced-hardware recommendation.
+9. Evaluate the right-lower-leg R3 plus right-foot R4 reduced-hardware design in a larger cohort.
 
 ## 12. Project outcomes and research significance
 

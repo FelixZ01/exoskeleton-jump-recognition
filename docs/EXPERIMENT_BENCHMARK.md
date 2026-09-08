@@ -33,7 +33,7 @@ The Transformer is deliberately compact for this six-participant pilot. A stride
 - Results include balanced accuracy, macro-F1, confusion matrices, model size, training time, per-participant folds, and participant-clustered 95% bootstrap intervals.
 - Repeated seeds measure neural optimisation variability; they do not create additional independent participants.
 
-## Recommended experiment order
+## Experiment workflow
 
 ### 1. Create the event-centred dataset
 
@@ -121,8 +121,8 @@ python scripts/summarize_benchmarks.py \
   --output outputs/MODEL_COMPARISON.md
 ```
 
-## Cloud execution
+## Cloud execution environment
 
-Use [`../notebooks/ExoJump_Cloud_Benchmark.ipynb`](../notebooks/ExoJump_Cloud_Benchmark.ipynb) in Google Colab. The reliable default is to upload the private `exojump-code.zip` bundle and prepared NPZ through Colab's Files pane and keep `USE_DRIVE=False`; download the generated results archive before the temporary runtime closes. If Drive mounting is available, place both files in `MyDrive/exojump_private/` and set `USE_DRIVE=True` so outputs persist there. Both routes avoid granting Colab access to a private GitHub account. The dataset builder replaces participant identities with P01–P06 and exact acquisition timestamps with within-participant trial codes. Raw videos and identifying files should not be uploaded. Review all outputs before publishing aggregate results.
+The reference Colab workflow is provided in [`../notebooks/ExoJump_Cloud_Benchmark.ipynb`](../notebooks/ExoJump_Cloud_Benchmark.ipynb). It installs the public repository, validates the schema of an anonymised event-window dataset, runs the benchmark suite, and exports aggregate results. The formal experiment used three random seeds, up to 30 epochs, validation-participant early stopping, and 2,000 participant-clustered bootstrap resamples.
 
-Start with the notebook's quick mode. Run the complete three-seed study only after the smoke run succeeds. If the project is developed into a paper, confirm the selected final model with at least five seeds, but do not describe additional seeds as additional participant evidence.
+Public outputs contain only aggregate, de-identified metrics. Participant codes and within-participant trial identifiers are used solely to enforce leakage-resistant splits and recording-level aggregation.

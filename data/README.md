@@ -13,4 +13,4 @@ data/
 └── manifests/            Aggregate, anonymised metadata safe to version
 ```
 
-Do not rename or overwrite raw files. Generate derived files in `interim/` or `processed/` and record the command/configuration used.
+Raw files are kept unchanged. Derived files are written to `interim/` or `processed/`, with the corresponding command and configuration recorded for reproducibility.

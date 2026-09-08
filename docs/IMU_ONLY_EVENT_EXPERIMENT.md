@@ -32,7 +32,7 @@ Across 222 matched recordings, the IMU anchor had a median absolute offset of
 within 250 ms and 90.1% were within 500 ms. These values are a detector
 agreement check rather than classification performance.
 
-## Reportable benchmark
+## Formal benchmark results
 
 The cloud experiment trains CNN and TCN classifiers using only IMU inputs, with
 three random seeds, up to 30 epochs, early stopping, recording-level prediction

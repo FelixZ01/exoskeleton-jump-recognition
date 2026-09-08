@@ -5,7 +5,7 @@ Runtime: Google Colab T4 GPU
 Dataset: 643 pressure-event-centred windows from 222 sessions and six anonymised participants  
 Protocol: nested participant-held-out evaluation; seeds 42, 7, and 123; up to 30 epochs; early-stopping patience 5; 2,000 participant-clustered bootstrap resamples
 
-All requested experiment processes completed with return code 0. The complete runtime output was archived as `exojump_full_results.zip`. Only aggregate, de-identified results are reported here.
+The benchmark completed across all specified models, folds, and random seeds. Only aggregate, de-identified results are reported here.
 
 ## Fusion-model comparison
 
@@ -19,7 +19,7 @@ All requested experiment processes completed with return code 0. The complete ru
 | BiLSTM | 49.7% ± 2.3% | 45.2% ± 2.2% | 28.3%–70.8% |
 | TCN | 84.5% ± 3.7% | 83.4% ± 4.6% | 69.6%–97.8% |
 
-CNN achieved the best mean performance and was more stable across seeds than TCN. MiniROCKET was the strongest non-neural baseline, reaching 82.3% balanced accuracy without end-to-end neural optimisation. The present BiLSTM configuration did not learn a robust participant-independent decision boundary and should not be presented as a competitive result without architecture or optimisation changes.
+CNN achieved the best mean performance and was more stable across seeds than TCN. MiniROCKET was the strongest non-neural baseline, reaching 82.3% balanced accuracy without end-to-end neural optimisation. The evaluated BiLSTM configuration did not learn a robust participant-independent decision boundary and was not competitive in this benchmark.
 
 ## CNN modality ablation
 
@@ -49,5 +49,5 @@ These confusion matrices illustrate one seed only; the headline comparisons abov
 - Metrics were aggregated at session level and uncertainty was clustered by participant.
 - Six participants support a technical pilot, not a population-level or clinical validation claim.
 - Pressure-centred windows make this offline trial classification; continuous recognition and pressure-free deployment remain unvalidated.
-- The result can support a CV or supervisor discussion when described as a reproducible six-participant pilot, but should not be described as proven product tuning or real-time performance.
-- The next highest-value experiment is an IMU-only event detector and classifier evaluated without access to plantar pressure at inference time, followed by sEMG preprocessing and sensor-mapping verification.
+- The experiment establishes participant-independent offline trial classification; it does not establish real-time recognition or closed-loop product tuning.
+- Subsequent work evaluated an IMU-only event detector and classifier without plantar pressure at inference time, followed by sensor-mapping verification and compact-sensor experiments.

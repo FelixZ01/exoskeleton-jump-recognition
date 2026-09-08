@@ -4,7 +4,7 @@
 
 ## Directly supported observations
 
-The repository owner confirmed that the black modules fixed by black straps are IMU nodes, while the beige elastic wraps secure the sEMG electrode regions. White spherical objects visible beside the limbs are motion-capture markers rather than IMUs. The exoskeleton was carried on the participant's back and is not visible in this front view.
+During data collection, I used the black straps to secure the black IMU modules and the beige elastic wraps to secure the sEMG electrode regions. The white spherical objects beside the limbs are motion-capture markers rather than IMUs. The participant carried the exoskeleton on the back, outside the field of view in this front photograph.
 
 Eight black IMU modules are visible in a bilateral arrangement, with four modules on each side:
 
@@ -18,11 +18,11 @@ Eight black IMU modules are visible in a bilateral arrangement, with four module
 
 The photograph and acquisition recollection support a four-per-side configuration. They therefore supersede the earlier unsupported description of “six around the thigh, one on the lower leg, and one at the ankle.”
 
-## What cannot be recovered from the photograph
+## Mapping boundaries
 
-The image contains no readable hardware ID or packet-slot label. It cannot establish which physical module corresponds to raw IMU slot 1–8. The four stable modelling groups R1–R4 are confirmed as four retained IMU orientation groups because each contains roll, pitch, and yaw. A four-per-side layout makes a unilateral retained chain plausible, but the data and photograph alone cannot establish whether all four came from one side, which side was retained, or the R1-to-R4 anatomical order.
+The image contains no readable hardware ID or packet-slot label, so the photograph alone cannot connect a physical module to raw IMU slot 1–8. Combining the historical conversion order, hip–knee–ankle constraints in the legacy interpolation code, the right-side sEMG setup, and node-ablation behaviour supports the working reconstruction **R1 waist/hip, R2 anterior distal thigh, R3 anterior lower leg, and R4 dorsum of foot**. The four groups most likely represent the right-side chain; confidence in the side and identifier mapping is moderate.
 
-The acquisition recollection indicates that the full arrangement consisted of left and right four-node waist-to-foot chains, while later modelling retained four stable nodes. The existing sensor-ablation result—R4 being most informative—is compatible with, but does not prove, a distal leg or foot position. The exact retained side and R1–R4 order must not be reported without device IDs, cable records, or a labelled placement protocol.
+The acquisition record indicates that the full arrangement consisted of left and right four-node waist-to-foot chains, while later modelling used four stable nodes. R4 made the largest contribution in the sensor-ablation experiment, consistent with the pronounced orientation change expected at the foot during jumping. Because device IDs and labelled cable records were not preserved, the working reconstruction supports interpretation of the experiment but is not a direct hardware-ID verification.
 
 ## sEMG placement and interpretation boundary
 

@@ -47,7 +47,7 @@ The project investigated the classification of vertical and long jumps using ine
 
 - Separated raw exports, device-processed files, aligned data, interpolated data, figures, and logs into traceable processing stages.
 - After excluding two experimental videos, audited approximately 2.30 GB across 4,607 non-video files, including 2,483 CSV files, 948 log files, and 1,160 analysis figures.
-- Distinguished the inventoried archive size from the deduplicated modelling-data volume, avoiding any inflation of the workload through videos or packaged copies.
+- Reported the inventoried archive size separately from the deduplicated modelling-data volume, excluding videos and packaged copies from the modelling-data total.
 - Established file relationships using participant, movement class, acquisition time, and processing stage.
 - Preserved raw files and historical outputs instead of overwriting them, allowing the processing history to be reviewed.
 
@@ -125,7 +125,7 @@ The project investigated the classification of vertical and long jumps using ine
 - Completed all six outer folds so that every participant served once as the fully held-out test participant.
 - Repeated the complete evaluation using random seeds 42, 7, and 123 to measure sensitivity to model initialisation.
 - Reported balanced accuracy and macro-F1 to reflect performance across both movement classes.
-- Identified and corrected the lack of strict train–test separation in an early prototype, and excluded its inflated result from the validated findings.
+- Identified and corrected the lack of strict train–test separation in an early prototype, and excluded the overlap-affected result from the validated findings.
 - Maintained a clear distinction between offline trial classification, continuous real-time recognition, and automatic product-parameter optimisation.
 
 ## 9. Results and technical diagnosis

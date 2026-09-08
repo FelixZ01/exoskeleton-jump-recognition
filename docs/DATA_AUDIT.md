@@ -19,11 +19,11 @@ Audit date: 2026-09-05. Source files were read without modifying the original di
 | Movement classes | 2 |
 | Final aligned IMU/sEMG pairs present | 224 |
 
-The directory also contains two ZIP archives, including a duplicate packaged copy of `dataset_all`, so even the non-video archive size must not be interpreted as a deduplicated data volume. The 2.30 GB figure describes the non-video files that were inventoried, not the amount of unique model input.
+The directory also contains two ZIP archives, including a duplicate packaged copy of `dataset_all`. The 2.30 GB figure therefore describes the inventoried non-video files rather than the deduplicated volume used for modelling.
 
 ## IMU configuration audit
 
-The six-person formal dataset contains 227 packed IMU recordings with eight payload slots. The experiment photograph and acquisition recollection show a bilateral arrangement with four IMUs per side: waist, anterior distal thigh just above the knee, anterior lower leg, and dorsum of the foot. In 27 recordings from P01, all eight slots contained non-zero values; in the other 200 recordings, four slots contained stable non-zero values while the remaining slots were zero-filled. The historical conversion therefore retained four nodes as R1–R4. Their exact side and anatomical order remain unresolved. A separate set of 20 earlier pilot recordings used a six-slot payload and is not counted as an additional participant in the formal dataset.
+The six-person formal dataset contains 227 packed IMU recordings with eight payload slots. The experiment photograph and acquisition recollection show a bilateral arrangement with four IMUs per side: waist, anterior distal thigh just above the knee, anterior lower leg, and dorsum of the foot. In 27 recordings from P01, all eight slots contained non-zero values; in the other 200 recordings, four slots contained stable non-zero values while the remaining slots were zero-filled. The historical conversion retained four nodes as R1–R4. Conversion order, legacy biomechanical constraints, right-side sEMG placement, and ablation behaviour support the working map R1 waist/hip, R2 distal thigh, R3 anterior lower leg, and R4 dorsum of foot, most likely from the right-side chain (moderate confidence). A separate set of 20 earlier pilot recordings used a six-slot payload and is not counted as an additional participant in the formal dataset.
 
 ## Data layers
 

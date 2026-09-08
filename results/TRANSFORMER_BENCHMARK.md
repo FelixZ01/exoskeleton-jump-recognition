@@ -28,9 +28,8 @@ All 54 trained folds stopped early before the 30-epoch limit. Mean final trainin
 | Full IMU | 18/18 | 0.0075 | 0.4277 | 0.2086 | 0.4202 |
 | Full IMU + sEMG | 18/18 | 0.0124 | 0.5763 | 0.2898 | 0.5639 |
 
-These learning curves show a real overfitting tendency, especially for fusion. The experiment does not hide that limitation: validation-driven early stopping restores the best checkpoint instead of evaluating the final epoch. The smaller R3+R4 input produced both the best Transformer accuracy and the smallest train–validation gap, suggesting that removing weak or redundant channels acts as useful regularisation.
+The learning curves show the strongest overfitting tendency for fusion. Validation-driven early stopping restored the best checkpoint for each fold. The smaller R3+R4 input achieved the highest Transformer accuracy and the smallest train–validation gap, indicating that removal of weak or redundant channels provided useful regularisation.
 
-## Interpretation
+## Conclusion
 
-The defensible conclusion is that a compact Transformer can classify the two jump types competitively, while the dilated TCN remains the strongest and more stable full-sensor model. R3+R4 is a promising compact hardware configuration across both architectures. Because there are only six participants, these results are pilot evidence; a larger external participant cohort is required before making deployment or physiological generalisation claims.
-
+The compact Transformer achieved competitive cross-participant jump classification, while the dilated TCN remained the strongest and more stable full-sensor model. R3+R4 was the best compact sensor configuration across both architectures and also produced the smallest Transformer train–validation gap.

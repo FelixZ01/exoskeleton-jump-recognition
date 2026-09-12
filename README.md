@@ -1,5 +1,7 @@
 # Multimodal Exoskeleton Jump Recognition
 
+**Research context:** I conducted this project during my research internship in algorithms and data processing at the Shenzhen Institutes of Advanced Technology, Chinese Academy of Sciences (SIAT), from **October 2025 to January 2026**.
+
 Reproducible research code for recognizing **vertical jump** and **long jump** movements from synchronised surface electromyography (sEMG) and inertial measurement unit (IMU) signals collected during civilian exoskeleton experiments.
 
 > Status: research prototype. The repository contains code, aggregate metadata, and documentation. Human-participant recordings are intentionally excluded from Git.
